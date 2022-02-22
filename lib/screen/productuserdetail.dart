@@ -1,29 +1,29 @@
-import 'dart:io';
-import 'package:aqua_store/admin/admin_home.dart';
-import 'package:aqua_store/admin/update_product_scree.dart';
+import 'package:aqua_store/services/cartservices.dart';
 import 'package:aqua_store/services/product_service.dart';
 import 'package:aqua_store/services/rent_api.dart';
-import 'package:aqua_store/services/searchProduct_api.dart';
 import 'package:aqua_store/utils/time_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class ProductDetail extends StatefulWidget {
+import 'cart.dart';
+
+class ProductUserDetail extends StatefulWidget {
   final String id;
   final String name;
   final dynamic image;
+  // final String brand;
   final String category;
   final int price;
   final String description;
   final String productid;
   final String stock;
-
-  const ProductDetail({
+  ProductUserDetail({
     Key? key,
     required this.id,
     required this.name,
+    // required this.brand,
     required this.category,
     required this.price,
     required this.description,
@@ -33,10 +33,10 @@ class ProductDetail extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ProductDetail> createState() => _ProductDetailState();
+  State<ProductUserDetail> createState() => _ProductUserDetailState();
 }
 
-class _ProductDetailState extends State<ProductDetail> {
+class _ProductUserDetailState extends State<ProductUserDetail> {
   final address = TextEditingController();
   final city = TextEditingController();
   final postalCode = TextEditingController();
@@ -90,8 +90,21 @@ class _ProductDetailState extends State<ProductDetail> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green[900],
-        title: const Text("Details"),
+        title: const Text("Fish Details"),
         centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    fullscreenDialog: true,
+                    builder: (context) => Cart(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.shopping_cart_outlined))
+        ],
       ),
       body: Consumer<MyProduct>(
         builder: (context, product, child) {
@@ -103,6 +116,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 elevation: 50,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -122,7 +136,7 @@ class _ProductDetailState extends State<ProductDetail> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 gap(),
-                                Text("Fish Name : ${widget.name}",
+                                Text("Car name: ${widget.name}",
                                     style: TextStyle(
                                       color: Colors.green[800],
                                       fontSize: 16,
@@ -142,14 +156,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                       fontSize: 16,
                                     )),
                                 gap(),
-                                Text("Prices \$: ${widget.price}",
-                                    style: TextStyle(
-                                      color: Colors.green[800],
-                                      fontSize: 16,
-                                    )),
-                                gap(),
-                                Text(
-                                    "Total Available Fish in the tank: ${widget.stock}",
+                                Text("Price \$: ${widget.price}",
                                     style: TextStyle(
                                       color: Colors.green[800],
                                       fontSize: 16,
@@ -161,88 +168,6 @@ class _ProductDetailState extends State<ProductDetail> {
                                       fontSize: 16,
                                     )),
                                 gap(),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Expanded(
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            product
-                                                .delproduct(
-                                                  widget.id,
-                                                  context,
-                                                )
-                                                .then((value) => {
-                                                      if (value.message ==
-                                                          "Product Removed")
-                                                        {
-                                                          Navigator.pop(
-                                                              context),
-                                                          Fluttertoast
-                                                              .showToast(
-                                                            msg:
-                                                                "Product Successfully Removed",
-                                                            toastLength: Toast
-                                                                .LENGTH_SHORT,
-                                                            fontSize: 20.0,
-                                                            timeInSecForIosWeb:
-                                                                1,
-                                                            textColor:
-                                                                Colors.white,
-                                                            backgroundColor:
-                                                                Colors
-                                                                    .green[800],
-                                                          ),
-                                                        }
-                                                    });
-                                          },
-                                          child: const Text("Delete"),
-                                          style: ElevatedButton.styleFrom(
-                                              primary: Colors.green[800],
-                                              textStyle: const TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold)),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 30,
-                                      ),
-                                      Expanded(
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    UpdateProductUi(
-                                                  id: widget.id,
-                                                  name: widget.name,
-                                                  category: widget.category,
-                                                  description:
-                                                      widget.description,
-                                                  stock: widget.stock,
-                                                  price:
-                                                      widget.price.toString(),
-                                                  image: widget.image,
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                          child: const Text("Update"),
-                                          style: ElevatedButton.styleFrom(
-                                              primary: Colors.green[800],
-                                              textStyle: const TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold)),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
                               ],
                             ),
                           ),
@@ -260,13 +185,13 @@ class _ProductDetailState extends State<ProductDetail> {
                     //             child: SingleChildScrollView(
                     //               child: Container(
                     //                 margin: const EdgeInsets.all(10),
-                    //                 padding: const EdgeInsets.all(10),
+                    //                 padding: EdgeInsets.all(10),
                     //                 child: Form(
                     //                   key: globalCompleteFormKey,
                     //                   child: Column(
                     //                     mainAxisSize: MainAxisSize.max,
                     //                     children: [
-                    //                       gap(),
+                    //                       _gap(),
                     //                       TextFormField(
                     //                         keyboardType: TextInputType.text,
                     //                         // onSaved: (input) => email = input,
@@ -291,7 +216,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     //                           ),
                     //                         ),
                     //                       ),
-                    //                       gap(),
+                    //                       _gap(),
                     //                       TextFormField(
                     //                         keyboardType: TextInputType.text,
                     //                         // onSaved: (input) => email = input,
@@ -316,7 +241,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     //                           ),
                     //                         ),
                     //                       ),
-                    //                       gap(),
+                    //                       _gap(),
                     //                       TextFormField(
                     //                         keyboardType: TextInputType.number,
                     //                         // onSaved: (input) => email = input,
@@ -341,7 +266,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     //                           ),
                     //                         ),
                     //                       ),
-                    //                       gap(),
+                    //                       _gap(),
                     //                       TextFormField(
                     //                         keyboardType: TextInputType.text,
                     //                         // onSaved: (input) => email = input,
@@ -366,7 +291,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     //                           ),
                     //                         ),
                     //                       ),
-                    //                       gap(),
+                    //                       _gap(),
                     //                       ElevatedButton(
                     //                         child: Row(
                     //                           mainAxisAlignment:
@@ -406,8 +331,6 @@ class _ProductDetailState extends State<ProductDetail> {
                     //                             city.text,
                     //                             postalCode.text,
                     //                             country.text,
-                    //                             durationFrom,
-                    //                             durationTo,
                     //                             context,
                     //                           ).then((value) => {
                     //                                 setState(() {
@@ -451,7 +374,40 @@ class _ProductDetailState extends State<ProductDetail> {
                     //       textStyle: const TextStyle(
                     //           fontSize: 18, fontWeight: FontWeight.bold)),
                     // ),
+
                     gap(),
+                    Consumer<CartProvider>(
+                      builder: (context, value, _) {
+                        return ElevatedButton.icon(
+                          onPressed: () {
+                            value.add(
+                              widget.id.toString(),
+                              widget.image,
+                              widget.name,
+                              widget.price,
+                            );
+                            Fluttertoast.showToast(
+                              msg: "Successfully added to Cart",
+                              toastLength: Toast.LENGTH_SHORT,
+                              fontSize: 20.0,
+                              timeInSecForIosWeb: 1,
+                              textColor: Colors.white,
+                              backgroundColor: Colors.green[800],
+                            );
+                          },
+                          icon: Icon(
+                            Icons.add,
+                            color: Colors.red[50],
+                            size: 30,
+                          ),
+                          label: const Text("Add to Cart"),
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.green[800],
+                              textStyle: const TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold)),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -463,6 +419,12 @@ class _ProductDetailState extends State<ProductDetail> {
   }
 
   SizedBox gap() {
+    return SizedBox(
+      height: 10,
+    );
+  }
+
+  SizedBox _gap() {
     return const SizedBox(
       height: 20,
     );

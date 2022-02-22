@@ -1,23 +1,25 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:car_rental/model/add_product_model.dart';
-import 'package:car_rental/utils/configs.dart';
-import 'package:car_rental/utils/shared_preference.dart';
+import 'package:aqua_store/model/add_product_model.dart';
+import 'package:aqua_store/services/product_service.dart';
+import 'package:aqua_store/utils/configs.dart';
+import 'package:aqua_store/utils/shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'dart:async';
 
+import 'package:provider/provider.dart';
+
 // class AddProduct extends ChangeNotifier {
 Future<dynamic> postproduct(
   String name,
-  String brand,
   String category,
   String description,
   String availableVehicle,
   String price,
-  dynamic image,
+  String image,
   context,
 ) async {
   // var imageResult = MultipartFile.fromFileSync(image.path,
@@ -26,10 +28,9 @@ Future<dynamic> postproduct(
   // .fromFileSync(tyoimagefile.path, filename: "${tyoimagefile.path.split("/")[tyoimagefile.path.split("/").length -1]}")
   var body = {
     "name": name,
-    "brand": brand,
     "category": category,
     "description": description,
-    "availableVehicle": availableVehicle,
+    "countInStock": availableVehicle,
     "price": price,
     "image": image,
   };
@@ -45,6 +46,7 @@ Future<dynamic> postproduct(
   );
   if (response.statusCode == 201) {
     var addProduct = addProductFromJson(response.body);
+    await Provider.of<MyProduct>(context, listen: false).getproduct(context);
     return addProduct;
   } else {
     Fluttertoast.showToast(

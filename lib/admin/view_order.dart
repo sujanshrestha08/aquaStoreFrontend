@@ -1,5 +1,5 @@
-import 'package:car_rental/services/get_rent_services.dart';
-import 'package:car_rental/utils/time_provider.dart';
+import 'package:aqua_store/services/get_rent_services.dart';
+import 'package:aqua_store/utils/time_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -13,12 +13,18 @@ class ViewAdminOrders extends StatefulWidget {
 
 class _ViewAdminOrdersState extends State<ViewAdminOrders> {
   @override
+  void initState() {
+    super.initState();
+    Provider.of<GetRent>(context, listen: false).rentProduct(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final timeDate = Provider.of<TimeProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("View Rent Orders"),
-        backgroundColor: Colors.blue[900],
+        title: const Text("View All Rent Orders"),
+        backgroundColor: Colors.green[900],
         centerTitle: true,
         elevation: 2,
         leading: IconButton(
@@ -32,18 +38,15 @@ class _ViewAdminOrdersState extends State<ViewAdminOrders> {
         ),
       ),
       body: Consumer<GetRent>(builder: (context, rent, child) {
-        // final oldValue = rent.value?.length;
-        // var durationFrom = rent.value?[index].durationFrom;
-        // DateTime rent.value?[index].durationFrom;
-        // product.getRent(context);
-        int lengthRent = (rent.value?.length)!.toInt();
-        if (rent.value?.isEmpty == true && rent.value?.length != lengthRent) {
-          rent.rentProduct(context);
+        if (rent.value?.isEmpty == true) {
           return Center(
               child: Container(
-                  margin: const EdgeInsets.all(20), child: Text("Empty")));
+                  margin: const EdgeInsets.all(20),
+                  child: const Text(
+                    "Empty",
+                    style: TextStyle(fontSize: 20),
+                  )));
         } else {
-          rent.rentProduct(context);
           return ListView.builder(
               physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
@@ -59,7 +62,7 @@ class _ViewAdminOrdersState extends State<ViewAdminOrders> {
                       vertical: 2,
                     ),
                     child: Container(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Row(
                         children: [
                           Expanded(
@@ -69,13 +72,13 @@ class _ViewAdminOrdersState extends State<ViewAdminOrders> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                      "Ordered By - ${(rent.value?[index].user?.name).toString()}"),
+                                  // Text(
+                                  //     "Ordered By - ${(rent.value?[index].user?.name).toString()}"),
                                   Text(
                                       "Order duration from - ${timeDate.getDate((rent.value?[index].durationFrom).toString())}"),
                                   Text(
                                       "Order duration To - ${timeDate.getDate((rent.value?[index].durationTo).toString())}"),
-                                  Text("Order Item"),
+                                  const Text("Order Item"),
                                   Container(
                                     height: 50,
                                     child: Text(
@@ -87,7 +90,7 @@ class _ViewAdminOrdersState extends State<ViewAdminOrders> {
                                       .toString()),
                                   Text((rent.value?[index].rentItem?.price)
                                       .toString()),
-                                  Text("Picking Address"),
+                                  const Text("Picking Address"),
                                   Text((rent.value?[index].pickingAddress
                                           ?.address)
                                       .toString()),

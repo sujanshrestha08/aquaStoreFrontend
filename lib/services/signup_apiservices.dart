@@ -3,9 +3,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
-import 'package:car_rental/model/error_model.dart';
-import 'package:car_rental/model/sign_up_model.dart';
-import 'package:car_rental/utils/configs.dart';
+import 'package:aqua_store/model/error_model.dart';
+import 'package:aqua_store/model/sign_up_model.dart';
+import 'package:aqua_store/utils/configs.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;

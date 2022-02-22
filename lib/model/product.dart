@@ -39,13 +39,12 @@ class ProductElement {
     this.user,
     this.name,
     this.image,
-    this.brand,
     this.category,
     this.description,
     this.rating,
     this.numReviews,
     this.price,
-    this.availableVehicle,
+    this.countInStock,
     this.reviews,
     this.createdAt,
     this.updatedAt,
@@ -56,13 +55,12 @@ class ProductElement {
   String? user;
   String? name;
   String? image;
-  String? brand;
   String? category;
   String? description;
   int? rating;
   int? numReviews;
   int? price;
-  int? availableVehicle;
+  int? countInStock;
   List<dynamic>? reviews;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -73,13 +71,12 @@ class ProductElement {
         user: json["user"],
         name: json["name"],
         image: json["image"],
-        brand: json["brand"],
         category: json["category"],
         description: json["description"],
         rating: json["rating"],
         numReviews: json["numReviews"],
         price: json["price"],
-        availableVehicle: json["availableVehicle"],
+        countInStock: json["countInStock"],
         reviews: List<dynamic>.from(json["reviews"].map((x) => x)),
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
@@ -91,13 +88,12 @@ class ProductElement {
         "user": user,
         "name": name,
         "image": image,
-        "brand": brand,
         "category": category,
         "description": description,
         "rating": rating,
         "numReviews": numReviews,
         "price": price,
-        "availableVehicle": availableVehicle,
+        "countInStock": countInStock,
         "reviews": List<dynamic>.from(reviews!.map((x) => x)),
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),

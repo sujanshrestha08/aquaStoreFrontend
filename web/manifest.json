@@ -1,6 +1,6 @@
 {
-    "name": "car_rental",
-    "short_name": "car_rental",
+    "name": "aqua_store",
+    "short_name": "aqua_store",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

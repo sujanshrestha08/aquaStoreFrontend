@@ -1,11 +1,13 @@
-import 'package:car_rental/screen/car_details.dart';
-import 'package:car_rental/screen/homepage.dart';
-import 'package:car_rental/screen/login_screen.dart';
-import 'package:car_rental/services/get_rent_services.dart';
-import 'package:car_rental/services/product_service.dart';
-import 'package:car_rental/services/searchProduct_api.dart';
-import 'package:car_rental/utils/shared_preference.dart';
-import 'package:car_rental/utils/time_provider.dart';
+import 'package:aqua_store/screen/car_details.dart';
+import 'package:aqua_store/screen/homepage.dart';
+import 'package:aqua_store/screen/login_screen.dart';
+import 'package:aqua_store/services/cartservices.dart';
+import 'package:aqua_store/services/get_rent_services.dart';
+import 'package:aqua_store/services/product_service.dart';
+import 'package:aqua_store/services/searchProduct_api.dart';
+import 'package:aqua_store/services/view_my_order_services.dart';
+import 'package:aqua_store/utils/shared_preference.dart';
+import 'package:aqua_store/utils/time_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +16,9 @@ void main() {
     ChangeNotifierProvider(create: (_) => MyProduct()),
     ChangeNotifierProvider(create: (_) => TimeProvider()),
     ChangeNotifierProvider(create: (_) => GetRent()),
+    ChangeNotifierProvider(create: (_) => SearchProduct()),
+    ChangeNotifierProvider(create: (_) => ViewMyOrders()),
+    ChangeNotifierProvider(create: (_) => CartProvider()),
   ], child: const MyApp()));
 }
 
@@ -21,51 +26,10 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return
-        // FutureBuilder(
-        //       future: SharedServices.isLoggedIn(),
-        //       builder: (BuildContext context, AsyncSnapshot<bool> loginModel) {
-        //         if (loginModel.data == false || loginModel.data == null) {
-        //           return MaterialApp(
-        //             debugShowCheckedModeBanner: false,
-        //             title: 'Car Rental',
-        //             theme: ThemeData(
-        //               primarySwatch: Colors.blue,
-        //             ),
-        //             home: LoginScreen(),
-        //           );
-        //         }
-        //         if (loginModel.data == true) {
-        //           return MaterialApp(
-        //             debugShowCheckedModeBanner: false,
-        //             title: 'Car Rental',
-        //             theme: ThemeData(
-        //               // primarySwatch: Color(0xfff06127),/
-        //               colorScheme: ColorScheme.fromSwatch().copyWith(
-        //                 primary: Colors.blue[900],
-        //                 secondary: Colors.blue[900],
-        //               ),
-        //             ),
-        //             home: const Homepage(),
-        //           );
-        //         }
-        //         return MaterialApp(
-        //           debugShowCheckedModeBanner: false,
-        //           title: 'Neesmanage',
-        //           theme: ThemeData(
-        //             colorScheme: ColorScheme.fromSwatch().copyWith(
-        //               primary: Colors.blue[900],
-        //               secondary: Colors.blue[900],
-        //             ),
-        //           ),
-        //           home: const Homepage(),
-        //         );
-        //       });
-
-        MaterialApp(
-      title: 'Car Rental',
+    return MaterialApp(
+      title: 'Aqua Store',
       theme: ThemeData(
-        primaryColor: Colors.indigo[800],
+        primaryColor: Colors.green[800],
       ),
       home: LoginScreen(),
     );

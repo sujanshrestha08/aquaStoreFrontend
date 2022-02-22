@@ -13,7 +13,7 @@ class _CarDetailsState extends State<CarDetails> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent[900],
+        backgroundColor: Colors.greenAccent[900],
         elevation: 2,
         leading: IconButton(
           onPressed: () {

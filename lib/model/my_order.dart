@@ -1,21 +1,17 @@
-// To parse this JSON data, do
-//
-//     final getOrders = getOrdersFromJson(jsonString);
-
 import 'dart:convert';
 
-List<GetOrders> getOrdersFromJson(String str) =>
-    List<GetOrders>.from(json.decode(str).map((x) => GetOrders.fromJson(x)));
+List<MyOrder> myOrderFromJson(String str) =>
+    List<MyOrder>.from(json.decode(str).map((x) => MyOrder.fromJson(x)));
 
-String getOrdersToJson(List<GetOrders> data) =>
+String myOrderToJson(List<MyOrder> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class GetOrders {
-  GetOrders({
+class MyOrder {
+  MyOrder({
     this.rentItem,
     this.pickingAddress,
     this.id,
-    // this.user,
+    this.user,
     this.rentPrice,
     this.durationFrom,
     this.durationTo,
@@ -24,15 +20,12 @@ class GetOrders {
     this.createdAt,
     this.updatedAt,
     this.v,
-    this.rentAt,
-    this.pickedAt,
-    this.qty,
   });
 
   RentItem? rentItem;
   PickingAddress? pickingAddress;
   String? id;
-  // dynamic user;
+  String? user;
   int? rentPrice;
   DateTime? durationFrom;
   DateTime? durationTo;
@@ -41,15 +34,12 @@ class GetOrders {
   DateTime? createdAt;
   DateTime? updatedAt;
   int? v;
-  DateTime? rentAt;
-  DateTime? pickedAt;
-  String? qty;
 
-  factory GetOrders.fromJson(Map<String, dynamic> json) => GetOrders(
-        rentItem: RentItem?.fromJson(json["rentItem"]),
+  factory MyOrder.fromJson(Map<String, dynamic> json) => MyOrder(
+        rentItem: RentItem.fromJson(json["rentItem"]),
         pickingAddress: PickingAddress.fromJson(json["pickingAddress"]),
         id: json["_id"],
-        // user: User.fromJson(json["user"]),
+        user: json["user"],
         rentPrice: json["rentPrice"],
         durationFrom: DateTime.parse(json["durationFrom"]),
         durationTo: DateTime.parse(json["durationTo"]),
@@ -58,17 +48,13 @@ class GetOrders {
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
-        rentAt: json["rentAt"] == null ? null : DateTime.parse(json["rentAt"]),
-        pickedAt:
-            json["pickedAt"] == null ? null : DateTime.parse(json["pickedAt"]),
-        qty: json["qty"] == null ? null : json["qty"],
       );
 
   Map<String, dynamic> toJson() => {
         "rentItem": rentItem?.toJson(),
         "pickingAddress": pickingAddress?.toJson(),
         "_id": id,
-        // "user": user?.toJson(),
+        "user": user,
         "rentPrice": rentPrice,
         "durationFrom": durationFrom?.toIso8601String(),
         "durationTo": durationTo?.toIso8601String(),
@@ -77,9 +63,6 @@ class GetOrders {
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
         "__v": v,
-        "rentAt": rentAt == null ? null : rentAt?.toIso8601String(),
-        "pickedAt": pickedAt == null ? null : pickedAt?.toIso8601String(),
-        "qty": qty == null ? null : qty,
       };
 }
 
@@ -115,21 +98,18 @@ class RentItem {
   RentItem({
     this.name,
     this.image,
-    this.qty,
     this.price,
     this.product,
   });
 
   String? name;
   String? image;
-  String? qty;
   int? price;
   String? product;
 
   factory RentItem.fromJson(Map<String, dynamic> json) => RentItem(
         name: json["name"],
         image: json["image"],
-        qty: json["qty"],
         price: json["price"],
         product: json["product"],
       );
@@ -137,28 +117,7 @@ class RentItem {
   Map<String, dynamic> toJson() => {
         "name": name,
         "image": image,
-        "qty": qty,
         "price": price,
         "product": product,
       };
 }
-
-// class User {
-//   User({
-//     this.id,
-//     this.name,
-//   });
-
-//   String? id;
-//   String? name;
-
-//   factory User.fromJson(Map<String, dynamic> json) => User(
-//         id: json["_id"],
-//         name: json["name"],
-//       );
-
-//   Map<String, dynamic> toJson() => {
-//         "_id": id,
-//         "name": name,
-//       };
-// }

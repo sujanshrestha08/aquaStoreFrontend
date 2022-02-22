@@ -1,4 +1,4 @@
-# car_rental
+# aqua_store
 
 A new Flutter project.
 

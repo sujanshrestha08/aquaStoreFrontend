@@ -1,6 +1,6 @@
-// import 'package:car_rental/model/deleteProduct_model.dart';
-// import 'package:car_rental/utils/configs.dart';
-// import 'package:car_rental/utils/shared_preference.dart';
+// import 'package:aqua_store/model/deleteProduct_model.dart';
+// import 'package:aqua_store/utils/configs.dart';
+// import 'package:aqua_store/utils/shared_preference.dart';
 // import 'package:flutter/material.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:http/http.dart' as http;

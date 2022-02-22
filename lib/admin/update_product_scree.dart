@@ -1,5 +1,6 @@
-import 'package:car_rental/services/add_product.dart';
-import 'package:car_rental/services/update_product_api.dart';
+import 'package:aqua_store/admin/admin_home.dart';
+import 'package:aqua_store/services/add_product.dart';
+import 'package:aqua_store/services/update_product_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -10,20 +11,20 @@ import 'package:image_picker/image_picker.dart';
 class UpdateProductUi extends StatefulWidget {
   final String id;
   final String name;
-  final String brand;
+  // final String brand;
   final String category;
   final String description;
-  final String availableVehicle;
+  final String stock;
   final String price;
   final String image;
   UpdateProductUi(
       {Key? key,
       required this.id,
       required this.name,
-      required this.brand,
+      // required this.brand,
       required this.category,
       required this.description,
-      required this.availableVehicle,
+      required this.stock,
       required this.price,
       required this.image})
       : super(key: key);
@@ -35,14 +36,24 @@ class UpdateProductUi extends StatefulWidget {
 class _UpdateProductUiState extends State<UpdateProductUi> {
   // late File _image;
   // late File _image;
+  String dropdownvalue = "Goldfish";
+
+  var items = [
+    'Goldfish',
+    'Oscar',
+    'Tetra',
+    'Molly',
+    'European anchovy',
+  ];
+
   bool apiCallProcess = false;
   final GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
-  TextEditingController name = TextEditingController();
-  TextEditingController brand = TextEditingController();
-  TextEditingController category = TextEditingController();
-  TextEditingController description = TextEditingController();
-  TextEditingController availableVehicle = TextEditingController();
-  TextEditingController price = TextEditingController();
+  final TextEditingController name = TextEditingController();
+  final TextEditingController brand = TextEditingController();
+  final TextEditingController category = TextEditingController();
+  final TextEditingController description = TextEditingController();
+  final TextEditingController stock = TextEditingController();
+  final TextEditingController price = TextEditingController();
   SizedBox _gap() {
     return const SizedBox(
       height: 20,
@@ -70,7 +81,7 @@ class _UpdateProductUiState extends State<UpdateProductUi> {
       appBar: AppBar(
         title: const Text("Update Product"),
         centerTitle: true,
-        backgroundColor: Colors.blue[900],
+        backgroundColor: Colors.green[900],
         elevation: 2,
         leading: IconButton(
           onPressed: () {
@@ -85,8 +96,10 @@ class _UpdateProductUiState extends State<UpdateProductUi> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(35),
+            Container(
+              color: Colors.white,
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(20),
               child: Form(
                 key: globalFormKey,
                 child: Column(
@@ -94,9 +107,17 @@ class _UpdateProductUiState extends State<UpdateProductUi> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.integration_instructions_outlined,
                       size: 80,
+                      color: Colors.green[900],
+                    ),
+                    Text(
+                      "Update below fields",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.green[900],
+                      ),
                     ),
 
                     _gap(),
@@ -112,57 +133,72 @@ class _UpdateProductUiState extends State<UpdateProductUi> {
                       },
                       controller: name,
                       decoration: InputDecoration(
-                        labelText: widget.name,
+                        hintText: "Enter Fish Name",
+                        labelText: "Old Fish Name - ${widget.name}",
                         hintStyle: const TextStyle(color: Colors.grey),
                         border: const OutlineInputBorder(),
-                        prefixIcon: const Icon(
-                          Icons.account_circle_outlined,
+                        prefixIcon: Icon(
+                          Icons.water,
+
                           // color: Colors.black54,
+                          color: Colors.green[900],
+                          size: 30,
                         ),
                       ),
                     ),
                     _gap(),
-                    TextFormField(
-                      keyboardType: TextInputType.text,
-                      // onSaved: (input) => email = input,
-                      validator: (input) {
-                        if (input == null || input.isEmpty) {
-                          return "Empty Brand Name";
-                        } else {
-                          null;
-                        }
-                      },
-                      controller: brand,
-                      decoration: InputDecoration(
-                        labelText: widget.brand,
-                        hintStyle: TextStyle(color: Colors.grey),
-                        border: OutlineInputBorder(),
-                        prefixIcon: Icon(
-                          Icons.account_circle_outlined,
-                          // color: Colors.black54,
-                        ),
-                      ),
-                    ),
-                    _gap(),
-                    TextFormField(
-                      keyboardType: TextInputType.text,
-                      // onSaved: (input) => email = input,
-                      validator: (input) {
-                        if (input == null || input.isEmpty) {
-                          return "Empty Category";
-                        } else {
-                          null;
-                        }
-                      },
-                      controller: category,
-                      decoration: InputDecoration(
-                        labelText: widget.category,
-                        hintStyle: TextStyle(color: Colors.grey),
-                        border: OutlineInputBorder(),
-                        prefixIcon: Icon(
-                          Icons.account_circle_outlined,
-                          // color: Colors.black54,
-                        ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(3)),
+                      width: double.infinity,
+                      child: Row(
+                        children: [
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Icon(
+                            Icons.category_outlined,
+                            size: 30,
+                            color: Colors.green[900],
+                          ),
+                          const SizedBox(width: 5),
+                          Text(
+                            "Category",
+                            style: TextStyle(
+                                fontSize: 17, color: Colors.grey[600]),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.green[50],
+                                border:
+                                    Border.all(color: Colors.green.shade900),
+                                borderRadius: BorderRadius.circular(3)),
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: DropdownButton(
+                              value: dropdownvalue,
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: items.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child: Text(items),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  dropdownvalue = newValue!;
+                                  print(dropdownvalue);
+                                });
+                              },
+                              iconSize: 32,
+                              underline: const SizedBox(),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     _gap(),
@@ -178,12 +214,14 @@ class _UpdateProductUiState extends State<UpdateProductUi> {
                       },
                       controller: description,
                       decoration: InputDecoration(
-                        labelText: widget.description,
+                        labelText: "Description",
+                        hintText: "Old Value - ${widget.description}",
                         hintStyle: TextStyle(color: Colors.grey),
                         border: OutlineInputBorder(),
                         prefixIcon: Icon(
-                          Icons.account_circle_outlined,
-                          // color: Colors.black54,
+                          Icons.description_outlined,
+                          color: Colors.green[900],
+                          size: 30,
                         ),
                       ),
                     ),
@@ -196,19 +234,21 @@ class _UpdateProductUiState extends State<UpdateProductUi> {
                       // onSaved: (input) => email = input,
                       validator: (input) {
                         if (input == null || input.isEmpty) {
-                          return "Please enter available vehicle";
+                          return "Please enter available fish";
                         } else {
                           null;
                         }
                       },
-                      controller: availableVehicle,
+                      controller: stock,
                       decoration: InputDecoration(
-                        labelText: widget.availableVehicle,
+                        labelText: "Total Available Fish",
+                        hintText: widget.stock,
                         hintStyle: TextStyle(color: Colors.grey),
                         border: OutlineInputBorder(),
                         prefixIcon: Icon(
-                          Icons.account_circle_outlined,
-                          // color: Colors.black54,
+                          Icons.touch_app_outlined,
+                          color: Colors.green[900],
+                          size: 30,
                         ),
                       ),
                     ),
@@ -229,12 +269,14 @@ class _UpdateProductUiState extends State<UpdateProductUi> {
                       // onSaved: (input) => _value = num.tryParse(input),
                       controller: price,
                       decoration: InputDecoration(
-                        labelText: widget.price,
+                        labelText: "Price",
+                        hintText: widget.price,
                         hintStyle: TextStyle(color: Colors.grey),
                         border: OutlineInputBorder(),
                         prefixIcon: Icon(
-                          Icons.account_circle_outlined,
-                          // color: Colors.black54,
+                          Icons.attach_money_outlined,
+                          color: Colors.green[900],
+                          size: 30,
                         ),
                       ),
                     ),
@@ -269,28 +311,28 @@ class _UpdateProductUiState extends State<UpdateProductUi> {
                       padding: const EdgeInsets.symmetric(horizontal: 100),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.indigo[800],
+                          primary: Colors.green[800],
                           shape: const StadiumBorder(),
                           fixedSize:
                               const Size(double.maxFinite, double.infinity),
                           textStyle:
                               const TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           if (apiCallProcess == false) {
                             if (validateAndSave()) {
                               setState(() {
                                 apiCallProcess = true;
                               });
                             }
-                            putproduct(
+                            await putproduct(
                               name.text,
-                              brand.text,
-                              category.text,
+                              dropdownvalue.toString(),
                               description.text,
-                              availableVehicle.text,
+                              stock.text,
                               price.text,
-                              image!.path.toString(),
+                              // image!.path.toString(),
+                              "image.path",
                               widget.id.toString(),
                               context,
                             ).then((value) => {
@@ -299,6 +341,11 @@ class _UpdateProductUiState extends State<UpdateProductUi> {
                                   }),
                                   // if (value.isAdmin == false)
                                   // {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AdminHomePage()),
+                                  ),
                                   Fluttertoast.showToast(
                                     msg:
                                         "Congratulations ! \n Product has been updated",
@@ -372,7 +419,7 @@ class _UpdateProductUiState extends State<UpdateProductUi> {
                     //       TextSpan(
                     //         text: "Login",
                     //         style: TextStyle(
-                    //           color: Colors.indigo[700],
+                    //           color: Colors.green[700],
                     //           fontWeight: FontWeight.bold,
                     //         ),
                     //         recognizer: TapGestureRecognizer()

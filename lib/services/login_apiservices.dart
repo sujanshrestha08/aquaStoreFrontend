@@ -3,16 +3,15 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
-import 'package:car_rental/model/error_model.dart';
-import 'package:car_rental/model/login_model.dart';
-import 'package:car_rental/utils/configs.dart';
+import 'package:aqua_store/model/error_model.dart';
+import 'package:aqua_store/model/login_model.dart';
+import 'package:aqua_store/utils/configs.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 Future<dynamic> login(String email, String password) async {
   late Login model;
-  late ErrorModel errorModel = ErrorModel();
   // try {
   // var token =
   //     "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ0YWlsIjoiMTY0MjUxNjc5MDEyMiIsInpvbmVJZCI6IkFzaWEvS2F0aG1hbmR1Iiwic3ViIjoic3VqYW5zdGhhNDA2QGdtYWlsLmNvbSIsImlhdCI6MTY0MjUxNjc5MCwiZXhwIjoxNjQzMTIxNTkwfQ.AgoAICFcT5aKwArpN6PFevXLViS1cupLutW3a1W3aZI";
@@ -32,9 +31,7 @@ Future<dynamic> login(String email, String password) async {
   if (response.statusCode == 200) {
     model = loginFromJson(response.body);
     return model;
-  } else
-  // if (response.statusCode != 200)
-  {
+  } else {
     Fluttertoast.showToast(
       msg: "Error ! \nIncorrect Email or Password.",
       toastLength: Toast.LENGTH_SHORT,
@@ -43,9 +40,6 @@ Future<dynamic> login(String email, String password) async {
       textColor: Colors.white,
       backgroundColor: Colors.red[800],
     );
-    // return Toast
-    // loginErrorModel = errorModelFromJson(response.body);
-    // return loginErrorModel;
   }
   // } catch (e) {
   //   Future.error(e);

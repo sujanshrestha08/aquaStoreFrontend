@@ -1,18 +1,17 @@
-import 'package:aqua_store/admin/product_details.dart';
 import 'package:aqua_store/model/product.dart';
+import 'package:aqua_store/screen/productuserdetail.dart';
 import 'package:aqua_store/services/searchProduct_api.dart';
-import 'package:aqua_store/utils/search.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SearchPage extends StatefulWidget {
-  SearchPage({Key? key}) : super(key: key);
+class SearchUserPage extends StatefulWidget {
+  SearchUserPage({Key? key}) : super(key: key);
 
   @override
-  State<SearchPage> createState() => _SearchPageState();
+  State<SearchUserPage> createState() => _SearchUserPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _SearchUserPageState extends State<SearchUserPage> {
   List<ProductElement>? products;
   TextEditingController searchP = TextEditingController();
   String query = '';
@@ -79,7 +78,7 @@ class _SearchPageState extends State<SearchPage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => ProductDetail(
+                                        builder: (context) => ProductUserDetail(
                                               id: (search.value?[index].id)
                                                   .toString(),
                                               name: (search.value?[index].name)
@@ -87,6 +86,9 @@ class _SearchPageState extends State<SearchPage> {
                                               image:
                                                   (search.value?[index].image)
                                                       .toString(),
+                                              // brand:
+                                              //     (search.value?[index].brand)
+                                              // .toString(),
                                               category: (search
                                                       .value?[index].category)
                                                   .toString(),
@@ -147,19 +149,4 @@ class _SearchPageState extends State<SearchPage> {
       ),
     );
   }
-
-  // Widget searchProduct() => Search(
-  //       text: query,
-  //       hintText: "Search...",
-  //       onChanged: product,
-  //     );
-
-  // Future product(String query) async {
-  //   final products = await getProduct(query, context);
-  //   if (!mounted) return;
-  //   setState(() {
-  //     this.query = query;
-  //     this.products = products;
-  //   });
-  // }
 }

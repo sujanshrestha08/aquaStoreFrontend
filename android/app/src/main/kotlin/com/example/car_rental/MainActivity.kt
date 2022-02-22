@@ -1,4 +1,4 @@
-package com.example.car_rental
+package com.example.aqua_store
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -29,23 +29,8 @@ class SharedServices {
     return prefs.getString("gettoken");
   }
 
-  // static Future<bool> setForgetLoginToken(String value) async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   return prefs.setString("forgetoken", value);
-  // }
-
-  // static Future<String?> getForgetLoginToken() async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   return prefs.getString("forgetoken");
-  // }
-
   static Future<void> logout() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
   }
-
-  // static Future<void> deleteForgetToken() async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   await prefs.clear();
-  // }
 }

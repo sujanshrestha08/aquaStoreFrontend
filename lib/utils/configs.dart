@@ -10,4 +10,6 @@ class Configs {
   static const String product = "$mainURL/api/products";
 
   static const String rent = "$mainURL/api/rents";
+
+  static const String viewOrder = "$mainURL/api/rents/myrents";
 }

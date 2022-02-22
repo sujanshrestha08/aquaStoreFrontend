@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:car_rental/model/add_product_model.dart';
-import 'package:car_rental/utils/configs.dart';
-import 'package:car_rental/utils/shared_preference.dart';
+import 'package:aqua_store/model/add_product_model.dart';
+import 'package:aqua_store/utils/configs.dart';
+import 'package:aqua_store/utils/shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -10,7 +10,6 @@ import 'package:http/http.dart' as http;
 // class AddProduct extends ChangeNotifier {
 Future<dynamic> putproduct(
   String name,
-  String brand,
   String category,
   String description,
   String availableVehicle,
@@ -21,10 +20,9 @@ Future<dynamic> putproduct(
 ) async {
   var body = {
     "name": name,
-    "brand": brand,
     "category": category,
     "description": description,
-    "availableVehicle": availableVehicle,
+    "countInStock": availableVehicle,
     "price": price,
     "image": image,
   };

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:aqua_store/model/get_rent.dart';
+import 'package:aqua_store/model/my_order.dart';
 import 'package:aqua_store/model/renting_model.dart';
 import 'package:aqua_store/utils/configs.dart';
 import 'package:aqua_store/utils/shared_preference.dart';
@@ -8,16 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
-class GetRent extends ChangeNotifier {
-  List<GetOrders>? _check = [];
-  List<GetOrders>? get value => _check;
+class ViewMyOrders extends ChangeNotifier {
+  List<MyOrder>? _check = [];
+  List<MyOrder>? get value => _check;
 
-  Future<dynamic> rentProduct(
+  Future<dynamic> viewOrder(
     context,
   ) async {
     String? token = await SharedServices.loginDetails();
     var response = await http.get(
-      Uri.parse(Configs.rent),
+      Uri.parse(Configs.viewOrder),
       headers: {
         "Authorization": "Bearer $token",
         "Access-Control-Allow-Origin": "/",
@@ -25,7 +26,7 @@ class GetRent extends ChangeNotifier {
       },
     );
     if (response.statusCode == 200) {
-      var modelProduct = getOrdersFromJson(response.body);
+      var modelProduct = myOrderFromJson(response.body);
       _check = modelProduct;
       notifyListeners();
       return modelProduct;

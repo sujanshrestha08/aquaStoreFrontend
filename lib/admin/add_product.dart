@@ -1,4 +1,4 @@
-import 'package:car_rental/services/add_product.dart';
+import 'package:aqua_store/services/add_product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -46,32 +46,24 @@ class _AddProductUiState extends State<AddProductUi> {
     });
   }
 
+  String dropdownvalue = "Goldfish";
+
+  var items = [
+    'Goldfish',
+    'Oscar',
+    'Tetra',
+    'Molly',
+    'European anchovy',
+  ];
+
   @override
   Widget build(BuildContext context) {
-    // _imgFromCamera() async {
-    //   File image = await ImagePicker.pickImage(
-    //       source: ImageSource.camera, imageQuality: 50);
-
-    //   setState(() {
-    //     _image = image;
-    //   });
-    // }
-
-    // _imgFromGallery() async {
-    //   File image = await ImagePicker.pickImage(
-    //       source: ImageSource.gallery, imageQuality: 50);
-
-    //   setState(() {
-    //     _image = image;
-    //   });
-    // }
-
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
         title: const Text("Add Product"),
         centerTitle: true,
-        backgroundColor: Colors.indigo[800],
+        backgroundColor: Colors.green[800],
         elevation: 2,
         leading: IconButton(
           onPressed: () {
@@ -101,15 +93,23 @@ class _AddProductUiState extends State<AddProductUi> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.car_rental_outlined,
-                          size: 60,
-                          color: Colors.blueGrey[700],
-                        ),
-                        Icon(
                           Icons.add,
                           size: 30,
                           color: Colors.redAccent[700],
-                        )
+                        ),
+                        SizedBox(
+                          height: 100,
+                          width: 100,
+                          child: Image.asset(
+                            'assets/icons/information.png',
+                            color: Colors.greenAccent[700],
+                          ),
+                        ),
+                        // Icon(
+                        //   Icons.aqua_store_outlined,
+                        //   size: 60,
+                        //   color: Colors.green[700],
+                        // ),
                       ],
                     ),
                     _gap(),
@@ -118,69 +118,124 @@ class _AddProductUiState extends State<AddProductUi> {
                       // onSaved: (input) => email = input,
                       validator: (input) {
                         if (input == null || input.isEmpty) {
-                          return "Please provide car model name";
+                          return "Please provide Fish name";
                         } else {
                           null;
                         }
                       },
                       controller: name,
                       decoration: InputDecoration(
-                        labelText: "Car Model Name",
+                        labelText: "Fish Name",
                         hintStyle: const TextStyle(color: Colors.grey),
                         border: const OutlineInputBorder(),
                         prefixIcon: Icon(
-                          Icons.car_rental,
-                          color: Colors.blue[900],
+                          Icons.water,
+                          color: Colors.green[900],
                           size: 30,
                         ),
                       ),
                     ),
+                    // _gap(),
+                    // TextFormField(
+                    //   keyboardType: TextInputType.text,
+                    //   // onSaved: (input) => email = input,
+                    //   validator: (input) {
+                    //     if (input == null || input.isEmpty) {
+                    //       return "Empty Brand Name";
+                    //     } else {
+                    //       null;
+                    //     }
+                    //   },
+                    //   controller: brand,
+                    //   decoration: InputDecoration(
+                    //     labelText: "Car Brand",
+                    //     hintStyle: TextStyle(color: Colors.grey),
+                    //     border: OutlineInputBorder(),
+                    //     prefixIcon: Icon(
+                    //       Icons.branding_watermark_outlined,
+                    // color: Colors.green[900],
+                    // size: 25,
+                    //     ),
+                    //   ),
+                    // ),
                     _gap(),
-                    TextFormField(
-                      keyboardType: TextInputType.text,
-                      // onSaved: (input) => email = input,
-                      validator: (input) {
-                        if (input == null || input.isEmpty) {
-                          return "Empty Brand Name";
-                        } else {
-                          null;
-                        }
-                      },
-                      controller: brand,
-                      decoration: InputDecoration(
-                        labelText: "Car Brand",
-                        hintStyle: TextStyle(color: Colors.grey),
-                        border: OutlineInputBorder(),
-                        prefixIcon: Icon(
-                          Icons.branding_watermark_outlined,
-                          color: Colors.blue[900],
-                          size: 25,
-                        ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(3)),
+                      width: double.infinity,
+                      child: Row(
+                        children: [
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Icon(
+                            Icons.category_outlined,
+                            size: 30,
+                            color: Colors.green[900],
+                          ),
+                          const SizedBox(width: 5),
+                          Text(
+                            "Category",
+                            style: TextStyle(
+                                fontSize: 17, color: Colors.grey[600]),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.green[50],
+                                border:
+                                    Border.all(color: Colors.green.shade900),
+                                borderRadius: BorderRadius.circular(3)),
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: DropdownButton(
+                              value: dropdownvalue,
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: items.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child: Text(items),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  dropdownvalue = newValue!;
+                                  print(dropdownvalue);
+                                });
+                              },
+                              iconSize: 32,
+                              underline: const SizedBox(),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    _gap(),
-                    TextFormField(
-                      keyboardType: TextInputType.text,
-                      // onSaved: (input) => email = input,
-                      validator: (input) {
-                        if (input == null || input.isEmpty) {
-                          return "Empty Category";
-                        } else {
-                          null;
-                        }
-                      },
-                      controller: category,
-                      decoration: InputDecoration(
-                        labelText: "Category",
-                        hintStyle: TextStyle(color: Colors.grey),
-                        border: OutlineInputBorder(),
-                        prefixIcon: Icon(
-                          Icons.category_outlined,
-                          color: Colors.blue[900],
-                          size: 30,
-                        ),
-                      ),
-                    ),
+                    // _gap(),
+                    // TextFormField(
+                    //   keyboardType: TextInputType.text,
+                    //   // onSaved: (input) => email = input,
+                    //   validator: (input) {
+                    //     if (input == null || input.isEmpty) {
+                    //       return "Empty Category";
+                    //     } else {
+                    //       null;
+                    //     }
+                    //   },
+                    //   controller: category,
+                    //   decoration: InputDecoration(
+                    //     labelText: "Category",
+                    //     hintStyle: const TextStyle(color: Colors.grey),
+                    //     border: const OutlineInputBorder(),
+                    //     prefixIcon: Icon(
+                    //       Icons.category_outlined,
+                    //       color: Colors.green[900],
+                    //       size: 30,
+                    //     ),
+                    //   ),
+                    // ),
                     _gap(),
                     TextFormField(
                       keyboardType: TextInputType.text,
@@ -195,11 +250,11 @@ class _AddProductUiState extends State<AddProductUi> {
                       controller: description,
                       decoration: InputDecoration(
                         labelText: "Description",
-                        hintStyle: TextStyle(color: Colors.grey),
-                        border: OutlineInputBorder(),
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        border: const OutlineInputBorder(),
                         prefixIcon: Icon(
                           Icons.description_outlined,
-                          color: Colors.blue[900],
+                          color: Colors.green[900],
                           size: 30,
                         ),
                       ),
@@ -213,19 +268,19 @@ class _AddProductUiState extends State<AddProductUi> {
                       // onSaved: (input) => email = input,
                       validator: (input) {
                         if (input == null || input.isEmpty) {
-                          return "Please enter available vehicle";
+                          return "Please enter available fish";
                         } else {
                           null;
                         }
                       },
                       controller: availableVehicle,
                       decoration: InputDecoration(
-                        labelText: "Total Available Vehicle",
-                        hintStyle: TextStyle(color: Colors.grey),
-                        border: OutlineInputBorder(),
+                        labelText: "Total Available Fish",
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        border: const OutlineInputBorder(),
                         prefixIcon: Icon(
                           Icons.touch_app_outlined,
-                          color: Colors.blue[900],
+                          color: Colors.green[900],
                           size: 30,
                         ),
                       ),
@@ -248,11 +303,11 @@ class _AddProductUiState extends State<AddProductUi> {
                       controller: price,
                       decoration: InputDecoration(
                         labelText: "Price",
-                        hintStyle: TextStyle(color: Colors.grey),
-                        border: OutlineInputBorder(),
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        border: const OutlineInputBorder(),
                         prefixIcon: Icon(
                           Icons.attach_money_outlined,
-                          color: Colors.blue[900],
+                          color: Colors.green[900],
                           size: 30,
                         ),
                       ),
@@ -277,7 +332,7 @@ class _AddProductUiState extends State<AddProductUi> {
                                 Icon(
                                   Icons.photo_library,
                                   size: 40,
-                                  color: Colors.blue[900],
+                                  color: Colors.green[900],
                                 ),
                                 const Text(
                                   'Select Photos',
@@ -306,7 +361,7 @@ class _AddProductUiState extends State<AddProductUi> {
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.blue[900],
+                          primary: Colors.green[900],
                           shape: const StadiumBorder(),
                           fixedSize:
                               const Size(double.maxFinite, double.infinity),
@@ -322,20 +377,20 @@ class _AddProductUiState extends State<AddProductUi> {
                             }
                             postproduct(
                               name.text,
-                              brand.text,
-                              category.text,
+                              dropdownvalue.toString(),
                               description.text,
                               availableVehicle.text,
                               price.text,
-                              image,
+                              (image?.path).toString(),
                               context,
                             ).then((value) => {
                                   setState(() {
                                     apiCallProcess = false;
                                   }),
+                                  Navigator.pop(context),
                                   Fluttertoast.showToast(
                                     msg:
-                                        "Congratulations ! \n Product has been added",
+                                        "Congratulations ! \n Fish has been added",
                                     toastLength: Toast.LENGTH_SHORT,
                                     fontSize: 20.0,
                                     timeInSecForIosWeb: 1,
