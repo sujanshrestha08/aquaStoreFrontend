@@ -15,7 +15,7 @@ void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => MyProduct()),
     ChangeNotifierProvider(create: (_) => TimeProvider()),
-    ChangeNotifierProvider(create: (_) => GetRent()),
+    ChangeNotifierProvider(create: (_) => GetAllOrders()),
     ChangeNotifierProvider(create: (_) => SearchProduct()),
     ChangeNotifierProvider(create: (_) => ViewMyOrders()),
     ChangeNotifierProvider(create: (_) => CartProvider()),

@@ -40,7 +40,7 @@ Future<dynamic> rentProduct(
   };
   String? token = await SharedServices.loginDetails();
   var response = await http.post(
-    Uri.parse(Configs.rent),
+    Uri.parse(Configs.adminOrder),
     headers: {
       "Authorization": "Bearer $token",
       "Access-Control-Allow-Origin": "/",

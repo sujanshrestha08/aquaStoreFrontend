@@ -195,121 +195,101 @@ class _HomePageState extends State<HomePage> {
                 Colors.green.shade400,
                 Colors.green.shade50,
               ])),
-          child: Column(
-            children: [
-              Consumer<MyProduct>(builder: (context, product, child) {
-                if (product.value?.isEmpty == true) {
-                  return Center(
-                      child: Container(
-                          margin: const EdgeInsets.all(20),
-                          child: const Text("Empty")));
-                } else {
-                  return SingleChildScrollView(
-                    child: Container(
-                      margin: const EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50)),
-                      child: GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 2.0,
-                            mainAxisSpacing: 2.0,
-                          ),
-                          physics: const BouncingScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: product.value?.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return GridTile(
-                              child: InkWell(
-                                onTap: () {
-                                  {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ProductUserDetail(
-                                                id: (product.value?[index].id)
+          child: Consumer<MyProduct>(builder: (context, product, child) {
+            if (product.value?.isEmpty == true) {
+              return Center(
+                  child: Container(
+                      margin: const EdgeInsets.all(20),
+                      child: const Text("Empty")));
+            } else {
+              return SingleChildScrollView(
+                child: Container(
+                  margin: const EdgeInsets.all(15),
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(50)),
+                  child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 2.0,
+                        mainAxisSpacing: 2.0,
+                      ),
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: product.value?.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return GridTile(
+                          child: InkWell(
+                            onTap: () {
+                              {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ProductUserDetail(
+                                            id: (product.value?[index].id)
+                                                .toString(),
+                                            name: (product.value?[index].name)
+                                                .toString(),
+                                            image:
+                                                (product.value?[index].image),
+                                            category:
+                                                (product.value?[index].category)
                                                     .toString(),
-                                                name:
-                                                    (product.value?[index].name)
-                                                        .toString(),
-                                                image: (product
-                                                    .value?[index].image),
-                                                // NetworkImage(
-                                                //     Configs.mainURL +
-                                                //         // "/" +
-                                                //         // "${product.value?[index].image}"
-                                                //         "/uploads/image-1644773012939.png"
-                                                //     // "${product.value?[index].image}"
-
-                                                //     ),
-                                                category: (product
-                                                        .value?[index].category)
-                                                    .toString(),
-                                                price: (product
-                                                        .value?[index].price)!
+                                            price:
+                                                (product.value?[index].price)!
                                                     .toInt(),
-                                                description: (product
-                                                        .value?[index]
-                                                        .description)
+                                            description: (product
+                                                    .value?[index].description)
+                                                .toString(),
+                                            productid:
+                                                (product.value?[index].id)
                                                     .toString(),
-                                                productid:
-                                                    (product.value?[index].id)
-                                                        .toString(),
-                                                stock: ((product.value?[index]
-                                                        .countInStock)
-                                                    .toString()),
-                                              )),
-                                    );
-                                  }
-                                },
-                                child: Card(
-                                  elevation: 10,
-                                  child: Container(
-                                    height: 130,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      color: Colors.purple.shade100,
-                                      image: const DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(Configs.mainURL +
-                                                // "/" +
-                                                // "${product.value?[index].image}"
-                                                "/uploads/image-1644522312628.png"
-                                            // "${product.value?[index].image}"
-
-                                            ),
-                                      ),
-                                    ),
+                                            stock: ((product
+                                                    .value?[index].countInStock)
+                                                .toString()),
+                                          )),
+                                );
+                              }
+                            },
+                            child: Card(
+                              elevation: 10,
+                              child: Container(
+                                height: 130,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Colors.purple.shade100,
+                                  image: const DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(Configs.mainURL +
+                                        "/uploads/image-1644522312628.png"),
                                   ),
                                 ),
                               ),
-                              footer: Column(
-                                children: [
-                                  Text((product.value?[index].name).toString(),
-                                      style: TextStyle(
-                                          color: Colors.green[800],
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold)),
-                                  space(),
-                                  Text(
-                                      "\$: ${(product.value?[index].price).toString()}",
-                                      style: TextStyle(
-                                          color: Colors.red[600],
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold)),
-                                  space(),
-                                ],
-                              ),
-                            );
-                          }),
-                    ),
-                  );
-                }
-              }),
-            ],
-          ),
+                            ),
+                          ),
+                          footer: Column(
+                            children: [
+                              Text((product.value?[index].name).toString(),
+                                  style: TextStyle(
+                                      color: Colors.green[800],
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)),
+                              space(),
+                              Text(
+                                  "\$: ${(product.value?[index].price).toString()}",
+                                  style: TextStyle(
+                                      color: Colors.red[600],
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold)),
+                              space(),
+                            ],
+                          ),
+                        );
+                      }),
+                ),
+              );
+            }
+          }),
         ),
       ),
     );

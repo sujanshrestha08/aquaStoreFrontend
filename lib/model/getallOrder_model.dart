@@ -1,17 +1,17 @@
 // To parse this JSON data, do
 //
-//     final myOrder = myOrderFromJson(jsonString);
+//     final adminOrder = adminOrderFromJson(jsonString);
 
 import 'dart:convert';
 
-List<MyOrder> myOrderFromJson(String str) =>
-    List<MyOrder>.from(json.decode(str).map((x) => MyOrder.fromJson(x)));
+List<AdminOrder> adminOrderFromJson(String str) =>
+    List<AdminOrder>.from(json.decode(str).map((x) => AdminOrder.fromJson(x)));
 
-String myOrderToJson(List<MyOrder> data) =>
+String adminOrderToJson(List<AdminOrder> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class MyOrder {
-  MyOrder({
+class AdminOrder {
+  AdminOrder({
     this.shippingAddress,
     this.id,
     this.user,
@@ -28,7 +28,7 @@ class MyOrder {
 
   ShippingAddress? shippingAddress;
   String? id;
-  String? user;
+  User? user;
   List<OrderItem>? orderItems;
   int? taxPrice;
   int? shippingPrice;
@@ -39,10 +39,10 @@ class MyOrder {
   DateTime? updatedAt;
   int? v;
 
-  factory MyOrder.fromJson(Map<String, dynamic> json) => MyOrder(
+  factory AdminOrder.fromJson(Map<String, dynamic> json) => AdminOrder(
         shippingAddress: ShippingAddress.fromJson(json["shippingAddress"]),
         id: json["_id"],
-        user: json["user"],
+        user: User.fromJson(json["user"]),
         orderItems: List<OrderItem>.from(
             json["orderItems"].map((x) => OrderItem.fromJson(x))),
         taxPrice: json["taxPrice"],
@@ -58,7 +58,7 @@ class MyOrder {
   Map<String, dynamic> toJson() => {
         "shippingAddress": shippingAddress?.toJson(),
         "_id": id,
-        "user": user,
+        "user": user?.toJson(),
         "orderItems": List<dynamic>.from(orderItems!.map((x) => x.toJson())),
         "taxPrice": taxPrice,
         "shippingPrice": shippingPrice,
@@ -133,5 +133,25 @@ class ShippingAddress {
         "city": city,
         "postalCode": postalCode,
         "country": country,
+      };
+}
+
+class User {
+  User({
+    this.id,
+    this.name,
+  });
+
+  String? id;
+  String? name;
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json["_id"],
+        name: json["name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "_id": id,
+        "name": name,
       };
 }
