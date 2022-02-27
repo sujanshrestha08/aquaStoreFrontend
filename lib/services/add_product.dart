@@ -54,6 +54,19 @@ Future<dynamic> postproduct(
     body: jsonEncode(body),
   );
   if (response.statusCode == 201) {
+    // File fileBody = image;
+    // var response2 =
+    //     await http.post(Uri.parse("http://localhost:5000/api/upload"),
+    //         headers: {
+    //           "Authorization": "Bearer $token",
+    //           "Access-Control-Allow-Origin": "/",
+    //           "Content-Type": "application/json",
+    //         },
+    //         body: jsonEncode(fileBody));
+
+    // if (response2.statusCode == 201) {
+    //   print("oh uyes");
+    // }
     var addProduct = addProductFromJson(response.body);
     await Provider.of<MyProduct>(context, listen: false).getproduct(context);
     return addProduct;

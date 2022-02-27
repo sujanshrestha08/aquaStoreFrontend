@@ -185,27 +185,28 @@ class _CartState extends State<Cart> {
                                   ),
                                   ElevatedButton(
                                     onPressed: () async {
-                                      for (int i = 0;
-                                          i < value.lst.length;
-                                          i++) {
-                                        await rentProduct(
-                                          value.lst[i].name.toString(),
-                                          "image",
-                                          value.lst[i].productPrice.toString(),
-                                          value.lst[i].productId.toString(),
-                                          address.text,
-                                          city.text,
-                                          postalCode.text,
-                                          country.text,
-                                          context,
-                                        ).then((value) => {
-                                              setState(() {
-                                                Navigator.pop(context);
-                                                Navigator.pop(context);
-                                                Navigator.pop(context);
-                                              }),
-                                            });
-                                      }
+                                      await rentProduct(
+                                        // value.lst[i].name.toString(),
+                                        // "image",
+                                        // value.lst[i].productPrice.toString(),
+                                        // value.lst[i].productId.toString(),
+                                        address.text,
+                                        city.text,
+                                        postalCode.text,
+                                        country.text,
+                                        context,
+                                        data: value.lst,
+                                      ).then((value) => {
+                                            setState(() {
+                                              Provider.of<CartProvider>(context,
+                                                      listen: false)
+                                                  .lst
+                                                  .clear();
+                                              Navigator.pop(context);
+                                              Navigator.pop(context);
+                                              Navigator.pop(context);
+                                            }),
+                                          });
                                     },
                                     child: const Text("Buy these Items"),
                                     style: ElevatedButton.styleFrom(

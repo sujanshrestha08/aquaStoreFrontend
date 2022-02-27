@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final requestAttendance = requestAttendanceFromJson(jsonString);
+
 import 'dart:convert';
 
 RequestAttendance requestAttendanceFromJson(String str) =>
@@ -9,13 +13,13 @@ String requestAttendanceToJson(RequestAttendance data) =>
 class RequestAttendance {
   RequestAttendance({
     this.user,
-    this.rentItem,
-    this.rentPrice,
-    this.durationFrom,
-    this.durationTo,
-    this.pickingAddress,
-    this.isRent,
-    this.isPickedUp,
+    this.orderItems,
+    this.shippingAddress,
+    this.taxPrice,
+    this.shippingPrice,
+    this.totalPrice,
+    this.isPaid,
+    this.isDelivered,
     this.id,
     this.createdAt,
     this.updatedAt,
@@ -23,13 +27,13 @@ class RequestAttendance {
   });
 
   String? user;
-  RentItem? rentItem;
-  int? rentPrice;
-  DateTime? durationFrom;
-  DateTime? durationTo;
-  PickingAddress? pickingAddress;
-  bool? isRent;
-  bool? isPickedUp;
+  List<OrderItem>? orderItems;
+  ShippingAddress? shippingAddress;
+  int? taxPrice;
+  int? shippingPrice;
+  int? totalPrice;
+  bool? isPaid;
+  bool? isDelivered;
   String? id;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -38,13 +42,14 @@ class RequestAttendance {
   factory RequestAttendance.fromJson(Map<String, dynamic> json) =>
       RequestAttendance(
         user: json["user"],
-        rentItem: RentItem.fromJson(json["rentItem"]),
-        rentPrice: json["rentPrice"],
-        durationFrom: DateTime.parse(json["durationFrom"]),
-        durationTo: DateTime.parse(json["durationTo"]),
-        pickingAddress: PickingAddress.fromJson(json["pickingAddress"]),
-        isRent: json["isRent"],
-        isPickedUp: json["isPickedUp"],
+        orderItems: List<OrderItem>.from(
+            json["orderItems"].map((x) => OrderItem.fromJson(x))),
+        shippingAddress: ShippingAddress.fromJson(json["shippingAddress"]),
+        taxPrice: json["taxPrice"],
+        shippingPrice: json["shippingPrice"],
+        totalPrice: json["totalPrice"],
+        isPaid: json["isPaid"],
+        isDelivered: json["isDelivered"],
         id: json["_id"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
@@ -53,13 +58,13 @@ class RequestAttendance {
 
   Map<String, dynamic> toJson() => {
         "user": user,
-        "rentItem": rentItem?.toJson(),
-        "rentPrice": rentPrice,
-        "durationFrom": durationFrom?.toIso8601String(),
-        "durationTo": durationTo?.toIso8601String(),
-        "pickingAddress": pickingAddress?.toJson(),
-        "isRent": isRent,
-        "isPickedUp": isPickedUp,
+        "orderItems": List<dynamic>.from(orderItems!.map((x) => x.toJson())),
+        "shippingAddress": shippingAddress?.toJson(),
+        "taxPrice": taxPrice,
+        "shippingPrice": shippingPrice,
+        "totalPrice": totalPrice,
+        "isPaid": isPaid,
+        "isDelivered": isDelivered,
         "_id": id,
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
@@ -67,8 +72,44 @@ class RequestAttendance {
       };
 }
 
-class PickingAddress {
-  PickingAddress({
+class OrderItem {
+  OrderItem({
+    this.name,
+    this.qty,
+    this.image,
+    this.price,
+    this.product,
+    this.id,
+  });
+
+  String? name;
+  int? qty;
+  String? image;
+  int? price;
+  String? product;
+  String? id;
+
+  factory OrderItem.fromJson(Map<String, dynamic> json) => OrderItem(
+        name: json["name"],
+        qty: json["qty"],
+        image: json["image"],
+        price: json["price"],
+        product: json["product"],
+        id: json["_id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "qty": qty,
+        "image": image,
+        "price": price,
+        "product": product,
+        "_id": id,
+      };
+}
+
+class ShippingAddress {
+  ShippingAddress({
     this.address,
     this.city,
     this.postalCode,
@@ -80,7 +121,8 @@ class PickingAddress {
   String? postalCode;
   String? country;
 
-  factory PickingAddress.fromJson(Map<String, dynamic> json) => PickingAddress(
+  factory ShippingAddress.fromJson(Map<String, dynamic> json) =>
+      ShippingAddress(
         address: json["address"],
         city: json["city"],
         postalCode: json["postalCode"],
@@ -92,33 +134,5 @@ class PickingAddress {
         "city": city,
         "postalCode": postalCode,
         "country": country,
-      };
-}
-
-class RentItem {
-  RentItem({
-    this.name,
-    this.image,
-    this.price,
-    this.product,
-  });
-
-  String? name;
-  String? image;
-  int? price;
-  String? product;
-
-  factory RentItem.fromJson(Map<String, dynamic> json) => RentItem(
-        name: json["name"],
-        image: json["image"],
-        price: json["price"],
-        product: json["product"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "name": name,
-        "image": image,
-        "price": price,
-        "product": product,
       };
 }

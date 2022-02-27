@@ -10,31 +10,33 @@ List<RequestAttendance>? _check = [];
 List<RequestAttendance>? get value => _check;
 
 Future<dynamic> rentProduct(
-  String name,
-  String image,
-  String price,
-  String product,
-  String address,
-  String city,
-  String postalCode,
-  String country,
-  context,
-) async {
+    // String name,
+    // String image,
+    // String price,
+    // String product,
+    String address,
+    String city,
+    String postalCode,
+    String country,
+    context,
+    {List? data}) async {
+  // for(var a in data!)
   var body = {
     "orderItems": [
-      {
-        "name": name,
-        "qty": 1,
-        "image": "/images/sample.jpg",
-        "price": price,
-        "product": product
-      }
+      for (var a in data!)
+        {
+          "name": "${a.name}",
+          "qty": 1,
+          "image": "/images/sample.jpg",
+          "price": "${a.productPrice}",
+          "product": "${a.id}"
+        }
     ],
     "shippingAddress": {
-      "address": address,
-      "city": city,
-      "postalCode": postalCode,
-      "country": country
+      "address": "$address",
+      "city": "$city",
+      "postalCode": "$postalCode",
+      "country": "$postalCode"
     }
   };
   String? token = await SharedServices.loginDetails();
@@ -45,7 +47,7 @@ Future<dynamic> rentProduct(
       "Access-Control-Allow-Origin": "/",
       "Content-Type": "application/json",
     },
-    body: jsonEncode(body),
+    body: json.encode(body),
   );
   if (response.statusCode == 201) {
     var modelProduct = requestAttendanceFromJson(response.body);
