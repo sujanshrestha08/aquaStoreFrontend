@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:aqua_store/model/add_product_model.dart';
 import 'package:aqua_store/services/product_service.dart';
 import 'package:aqua_store/utils/configs.dart';
@@ -7,7 +8,6 @@ import 'package:aqua_store/utils/shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 import 'dart:async';
 
 import 'package:provider/provider.dart';
@@ -19,9 +19,18 @@ Future<dynamic> postproduct(
   String description,
   String availableVehicle,
   String price,
-  String image,
+  dynamic image,
   context,
 ) async {
+  dynamic imageFile;
+  if (image != null) {
+    imageFile = MultipartFile.fromFileSync(
+      //part of dio package to post image
+      image.path,
+      filename: "${image.path.split("/")[image.path.split("/").length - 1]}",
+    );
+  }
+
   // var imageResult = MultipartFile.fromFileSync(image.path,
   //     filename: "${image.path.split("/")[image.path.split("/").length - 1]}");
   // print(imageResult);
@@ -32,7 +41,7 @@ Future<dynamic> postproduct(
     "description": description,
     "countInStock": availableVehicle,
     "price": price,
-    "image": image,
+    "image": image != null ? "/${imageFile.filename}" : null,
   };
   String? token = await SharedServices.loginDetails();
   var response = await http.post(

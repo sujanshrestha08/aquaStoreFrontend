@@ -323,14 +323,12 @@ class _AdminHomePageState extends State<AdminHomePage> {
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 color: Colors.purple.shade100,
-                                image: const DecorationImage(
+                                image: DecorationImage(
                                   fit: BoxFit.cover,
                                   image: NetworkImage(Configs.mainURL +
-                                          // "/" +
-                                          // "${product.value?[index].image}"
-                                          "/uploads/image-1644522312628.png"
+                                          "/" +
+                                          "${product.value?[index].image}"
                                       // "${product.value?[index].image}"
-
                                       ),
                                 ),
                               ),

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
-// class SearchProduct extends ChangeNotifier {
 List<RequestAttendance>? _check = [];
 List<RequestAttendance>? get value => _check;
 
@@ -50,10 +49,15 @@ Future<dynamic> rentProduct(
   );
   if (response.statusCode == 201) {
     var modelProduct = requestAttendanceFromJson(response.body);
-
-    // _check = modelProduct.products;
+    Fluttertoast.showToast(
+      msg: "Successfully Bought",
+      toastLength: Toast.LENGTH_SHORT,
+      fontSize: 20.0,
+      timeInSecForIosWeb: 1,
+      textColor: Colors.white,
+      backgroundColor: Colors.green[800],
+    );
     return modelProduct;
-    // notifyListeners();
   } else {
     Fluttertoast.showToast(
       msg: "Error ! \nPlease try again later.",

@@ -13,9 +13,12 @@ class AddProductUi extends StatefulWidget {
   State<AddProductUi> createState() => _AddProductUiState();
 }
 
+dynamic image;
+
 class _AddProductUiState extends State<AddProductUi> {
   // late File _image;
   late File _image;
+  dynamic netImage;
   bool apiCallProcess = false;
   final ImagePicker selectedimage = ImagePicker();
   final GlobalKey<FormState> globalFormKey = GlobalKey<FormState>();
@@ -381,7 +384,7 @@ class _AddProductUiState extends State<AddProductUi> {
                               description.text,
                               availableVehicle.text,
                               price.text,
-                              (image?.path).toString(),
+                              image ?? null,
                               context,
                             ).then((value) => {
                                   setState(() {
