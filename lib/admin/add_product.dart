@@ -28,24 +28,22 @@ class _AddProductUiState extends State<AddProductUi> {
   TextEditingController description = TextEditingController();
   TextEditingController availableVehicle = TextEditingController();
   TextEditingController price = TextEditingController();
-
+  dynamic pickedImage;
+  var check;
   SizedBox _gap() {
     return const SizedBox(
       height: 20,
     );
   }
 
-  File? image;
-
   Future pickImage() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (image == null) {
+    var pickImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickImage == null) {
       return;
     }
-
-    final imageTemporary = File(image.path);
     setState(() {
-      this.image = imageTemporary;
+      check = pickImage;
+      pickedImage = File(pickImage.path);
     });
   }
 
@@ -316,9 +314,9 @@ class _AddProductUiState extends State<AddProductUi> {
                       ),
                     ),
                     _gap(),
-                    image != null
+                    pickedImage != null
                         ? Image.file(
-                            image!,
+                            pickedImage!,
                             width: 200,
                             height: 200,
                             fit: BoxFit.cover,
@@ -379,28 +377,29 @@ class _AddProductUiState extends State<AddProductUi> {
                               });
                             }
                             postproduct(
-                              name.text,
-                              dropdownvalue.toString(),
-                              description.text,
-                              availableVehicle.text,
-                              price.text,
-                              image ?? null,
-                              context,
-                            ).then((value) => {
-                                  setState(() {
-                                    apiCallProcess = false;
-                                  }),
-                                  Navigator.pop(context),
-                                  Fluttertoast.showToast(
-                                    msg:
-                                        "Congratulations ! \n Fish has been added",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    fontSize: 20.0,
-                                    timeInSecForIosWeb: 1,
-                                    textColor: Colors.white,
-                                    backgroundColor: Colors.green[800],
-                                  ),
-                                });
+                                    name.text,
+                                    dropdownvalue.toString(),
+                                    description.text,
+                                    availableVehicle.text,
+                                    price.text,
+                                    pickedImage,
+                                    context,
+                                    check: check.path)
+                                .then((value) => {
+                                      setState(() {
+                                        apiCallProcess = false;
+                                      }),
+                                      Navigator.pop(context),
+                                      Fluttertoast.showToast(
+                                        msg:
+                                            "Congratulations ! \n Fish has been added",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        fontSize: 20.0,
+                                        timeInSecForIosWeb: 1,
+                                        textColor: Colors.white,
+                                        backgroundColor: Colors.green[800],
+                                      ),
+                                    });
                           }
                         },
                         child: apiCallProcess == true

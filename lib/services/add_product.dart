@@ -13,15 +13,9 @@ import 'dart:async';
 import 'package:provider/provider.dart';
 
 // class AddProduct extends ChangeNotifier {
-Future<dynamic> postproduct(
-  String name,
-  String category,
-  String description,
-  String availableVehicle,
-  String price,
-  dynamic image,
-  context,
-) async {
+Future<dynamic> postproduct(String name, String category, String description,
+    String availableVehicle, String price, dynamic image, context,
+    {dynamic check}) async {
   dynamic imageFile;
   if (image != null) {
     imageFile = MultipartFile.fromFileSync(
@@ -35,6 +29,7 @@ Future<dynamic> postproduct(
   //     filename: "${image.path.split("/")[image.path.split("/").length - 1]}");
   // print(imageResult);
   // .fromFileSync(tyoimagefile.path, filename: "${tyoimagefile.path.split("/")[tyoimagefile.path.split("/").length -1]}")
+
   var body = {
     "name": name,
     "category": category,
@@ -43,6 +38,10 @@ Future<dynamic> postproduct(
     "price": price,
     "image": image != null ? "/${imageFile.filename}" : null,
   };
+
+  // var body = {
+
+  // };
   String? token = await SharedServices.loginDetails();
   var response = await http.post(
     Uri.parse(Configs.product),
@@ -55,18 +54,75 @@ Future<dynamic> postproduct(
   );
   if (response.statusCode == 201) {
     // File fileBody = image;
+    try {
+      Map<String, String> headers = {
+        "Authorization": "Bearer $token",
+        "Access-Control-Allow-Origin": "/",
+        "Content-Type": "application/json",
+      };
+      var request = http.MultipartRequest(
+          'Post', Uri.parse("http://192.168.1.69:5000/api/upload"));
+      request.headers.addAll(headers);
+      request.files.add(await http.MultipartFile.fromPath('image', check));
+      var res = await request.send();
+      return res.reasonPhrase;
+      // open a bytestream
+      // var stream = new http.ByteStream(image.openRead());
+      // // get file length
+      // var length = await image.length();
+
+      // // string to uri
+      // var uri = Uri.parse(Configs.mainURL + "/api/upload");
+
+      // // create multipart request
+      // var request = http.MultipartRequest("POST", uri);
+
+      // // multipart that takes file
+      // var multipartFile =
+      //     http.MultipartFile('image', stream, length, filename: image.path);
+
+      // // add file to multipart
+      // request.files.add(multipartFile);
+
+      // // send
+      // var response = await request.send();
+      // // listen for response
+      // response.stream.transform(utf8.decoder).listen((value) {
+      //   var a = json.decode(value);
+      //   print(a);
+      //   // userimagesignup = a['data'];
+      //   // imagearray.add(a['data']);
+      // });
+    } on DioError catch (e) {
+      throw e.response!;
+    }
+    // var imgBody = {
+    //   'image': imageFile.filename,
+    // };
+
+    // var responseee = await http
+    //     .post(Uri.parse(Configs.mainURL + " /api/upload"), body: imgBody);
+
+    // FormData imageBody = FormData.fromMap({
+    //   "image": imageFile.filename,
+    // });
+
+    // Dio dio = Dio();
+    // Response imageResponse =
+    //     await dio.post(Configs.mainURL + "/api/upload", data: imageBody);
     // var response2 =
     //     await http.post(Uri.parse("http://localhost:5000/api/upload"),
-    //         headers: {
-    //           "Authorization": "Bearer $token",
-    //           "Access-Control-Allow-Origin": "/",
-    //           "Content-Type": "application/json",
-    //         },
-    //         body: jsonEncode(fileBody));
+    //         // headers: {
+    //         //   "Authorization": "Bearer $token",
+    //         //   "Access-Control-Allow-Origin": "/",
+    //         //   "Content-Type": "application/json",
+    //         // },
+    //         body: jsonEncode(imageBody));
 
-    // if (response2.statusCode == 201) {
+    // if (responseee.statusCode == 201) {
     //   print("oh uyes");
     // }
+
     var addProduct = addProductFromJson(response.body);
     await Provider.of<MyProduct>(context, listen: false).getproduct(context);
     return addProduct;
