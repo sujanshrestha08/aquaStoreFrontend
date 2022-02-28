@@ -158,9 +158,9 @@ class _ProductDetailState extends State<ProductDetail> {
                                 gap(),
                                 Text("Fish Name : ${widget.name}",
                                     style: TextStyle(
-                                      color: Colors.green[800],
-                                      fontSize: 16,
-                                    )),
+                                        color: Colors.green[800],
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold)),
                                 // gap(),
                                 // Text(
                                 //   "Car Model: ${widget.brand}",
@@ -172,28 +172,28 @@ class _ProductDetailState extends State<ProductDetail> {
                                 gap(),
                                 Text("Category: ${widget.category}",
                                     style: TextStyle(
-                                      color: Colors.green[800],
-                                      fontSize: 16,
-                                    )),
+                                        color: Colors.green[800],
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
                                 gap(),
                                 Text("Prices \$: ${widget.price}",
                                     style: TextStyle(
-                                      color: Colors.green[800],
-                                      fontSize: 16,
-                                    )),
+                                        color: Colors.green[800],
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
                                 gap(),
                                 Text(
                                     "Total Available Fish in the tank: ${widget.stock}",
                                     style: TextStyle(
-                                      color: Colors.green[800],
-                                      fontSize: 16,
-                                    )),
+                                        color: Colors.green[800],
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
                                 gap(),
                                 Text("Description: ${widget.description}",
                                     style: TextStyle(
-                                      color: Colors.green[800],
-                                      fontSize: 16,
-                                    )),
+                                        color: Colors.green[800],
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
                                 gap(),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(

@@ -1,10 +1,14 @@
 import 'package:aqua_store/services/add_product.dart';
+import 'package:aqua_store/utils/configs.dart';
+import 'package:aqua_store/utils/shared_preference.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 
 class AddProductUi extends StatefulWidget {
   AddProductUi({Key? key}) : super(key: key);
@@ -16,7 +20,6 @@ class AddProductUi extends StatefulWidget {
 dynamic image;
 
 class _AddProductUiState extends State<AddProductUi> {
-  // late File _image;
   late File _image;
   dynamic netImage;
   bool apiCallProcess = false;
@@ -47,6 +50,78 @@ class _AddProductUiState extends State<AddProductUi> {
     setState(() {
       this.image = imageTemporary;
     });
+  }
+
+  Future<dynamic> uploadImage() async {
+    String? token = await SharedServices.loginDetails();
+    Map<String, String> headers = {
+      "Authorization": "Bearer $token",
+      "Access-Control-Allow-Origin": "/",
+    };
+    final uri = Uri.parse(Configs.uploadImage);
+    var request = http.MultipartRequest('POST', uri);
+
+    var pic = await http.MultipartFile.fromPath('image', image!.path);
+    request.headers.addAll(headers);
+    request.files.add(pic);
+
+    var response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(response);
+      return Fluttertoast.showToast(
+        msg: "Image Uploaded",
+        toastLength: Toast.LENGTH_SHORT,
+        fontSize: 20.0,
+        timeInSecForIosWeb: 1,
+        textColor: Colors.white,
+        backgroundColor: Colors.green.shade900,
+      );
+    } else {
+      return Fluttertoast.showToast(
+        msg: "Error",
+        toastLength: Toast.LENGTH_SHORT,
+        fontSize: 20.0,
+        timeInSecForIosWeb: 1,
+        textColor: Colors.white,
+        backgroundColor: Colors.red[800],
+      );
+    }
+  }
+
+  Future<void> uploadProductImage(File image) async {
+    String? token = await SharedServices.loginDetails();
+    FormData _formData = FormData.fromMap({
+      "image": await MultipartFile.fromFile(image.path),
+    });
+    final response = await Dio().post(Configs.uploadImage,
+        data: _formData,
+        options: Options(
+          headers: {
+            "Authorization": "Bearer $token",
+            "Access-Control-Allow-Origin": "/"
+          },
+        ));
+    if (response.statusCode == 200) {
+      Fluttertoast.showToast(
+        msg: "Image Uploaded",
+        toastLength: Toast.LENGTH_SHORT,
+        fontSize: 20.0,
+        timeInSecForIosWeb: 1,
+        textColor: Colors.white,
+        backgroundColor: Colors.green.shade900,
+      );
+    } else {
+      Fluttertoast.showToast(
+        msg: "Error",
+        toastLength: Toast.LENGTH_SHORT,
+        fontSize: 20.0,
+        timeInSecForIosWeb: 1,
+        textColor: Colors.white,
+        backgroundColor: Colors.red[800],
+      );
+    }
+    // }
   }
 
   String dropdownvalue = "Goldfish";
@@ -138,29 +213,6 @@ class _AddProductUiState extends State<AddProductUi> {
                         ),
                       ),
                     ),
-                    // _gap(),
-                    // TextFormField(
-                    //   keyboardType: TextInputType.text,
-                    //   // onSaved: (input) => email = input,
-                    //   validator: (input) {
-                    //     if (input == null || input.isEmpty) {
-                    //       return "Empty Brand Name";
-                    //     } else {
-                    //       null;
-                    //     }
-                    //   },
-                    //   controller: brand,
-                    //   decoration: InputDecoration(
-                    //     labelText: "Car Brand",
-                    //     hintStyle: TextStyle(color: Colors.grey),
-                    //     border: OutlineInputBorder(),
-                    //     prefixIcon: Icon(
-                    //       Icons.branding_watermark_outlined,
-                    // color: Colors.green[900],
-                    // size: 25,
-                    //     ),
-                    //   ),
-                    // ),
                     _gap(),
                     Container(
                       padding: const EdgeInsets.symmetric(vertical: 5),
@@ -206,7 +258,6 @@ class _AddProductUiState extends State<AddProductUi> {
                               onChanged: (String? newValue) {
                                 setState(() {
                                   dropdownvalue = newValue!;
-                                  print(dropdownvalue);
                                 });
                               },
                               iconSize: 32,
@@ -216,33 +267,9 @@ class _AddProductUiState extends State<AddProductUi> {
                         ],
                       ),
                     ),
-                    // _gap(),
-                    // TextFormField(
-                    //   keyboardType: TextInputType.text,
-                    //   // onSaved: (input) => email = input,
-                    //   validator: (input) {
-                    //     if (input == null || input.isEmpty) {
-                    //       return "Empty Category";
-                    //     } else {
-                    //       null;
-                    //     }
-                    //   },
-                    //   controller: category,
-                    //   decoration: InputDecoration(
-                    //     labelText: "Category",
-                    //     hintStyle: const TextStyle(color: Colors.grey),
-                    //     border: const OutlineInputBorder(),
-                    //     prefixIcon: Icon(
-                    //       Icons.category_outlined,
-                    //       color: Colors.green[900],
-                    //       size: 30,
-                    //     ),
-                    //   ),
-                    // ),
                     _gap(),
                     TextFormField(
                       keyboardType: TextInputType.text,
-                      // onSaved: (input) => email = input,
                       validator: (input) {
                         if (input == null || input.isEmpty) {
                           return "Empty Description";
@@ -268,7 +295,6 @@ class _AddProductUiState extends State<AddProductUi> {
                         FilteringTextInputFormatter.digitsOnly
                       ],
                       keyboardType: TextInputType.number,
-                      // onSaved: (input) => email = input,
                       validator: (input) {
                         if (input == null || input.isEmpty) {
                           return "Please enter available fish";
@@ -291,7 +317,6 @@ class _AddProductUiState extends State<AddProductUi> {
                     _gap(),
                     TextFormField(
                       keyboardType: TextInputType.number,
-                      // onSaved: (input) => email = input,
                       inputFormatters: <TextInputFormatter>[
                         FilteringTextInputFormatter.digitsOnly
                       ],
@@ -302,7 +327,6 @@ class _AddProductUiState extends State<AddProductUi> {
                           null;
                         }
                       },
-                      // onSaved: (input) => _value = num.tryParse(input),
                       controller: price,
                       decoration: InputDecoration(
                         labelText: "Price",
@@ -317,11 +341,21 @@ class _AddProductUiState extends State<AddProductUi> {
                     ),
                     _gap(),
                     image != null
-                        ? Image.file(
-                            image!,
-                            width: 200,
-                            height: 200,
-                            fit: BoxFit.cover,
+                        ? Row(
+                            children: [
+                              Image.file(
+                                image!,
+                                width: 200,
+                                height: 200,
+                                fit: BoxFit.cover,
+                              ),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    // uploadImage();
+                                    uploadProductImage(image!);
+                                  },
+                                  child: const Text("Upload Photo"))
+                            ],
                           )
                         : ElevatedButton(
                             onPressed: () {
@@ -351,12 +385,7 @@ class _AddProductUiState extends State<AddProductUi> {
                             ),
                             style: ElevatedButton.styleFrom(
                               primary: Colors.grey[200],
-                              // shape: const StadiumBorder(),
-                              // fixedSize:
-                              //     const Size(double.maxFinite, double.infinity),
-                              textStyle: const TextStyle(
-                                  // fontWeight: FontWeight.bold,
-                                  color: Colors.black),
+                              textStyle: const TextStyle(color: Colors.black),
                             ),
                           ),
                     _gap(),

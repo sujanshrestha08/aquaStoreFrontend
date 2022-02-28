@@ -462,18 +462,27 @@ class _AdminHomePageState extends State<AdminHomePage> {
                             ),
                             footer: Column(
                               children: [
-                                Text((product.value?[index].name).toString(),
-                                    style: TextStyle(
-                                        color: Colors.green[800],
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold)),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Text(
+                                      (product.value?[index].name).toString(),
+                                      style: TextStyle(
+                                          color: Colors.green[800],
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold)),
+                                ),
                                 space(),
-                                Text(
-                                    "\$: ${(product.value?[index].price).toString()}",
-                                    style: TextStyle(
-                                        color: Colors.red[600],
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold)),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Text(
+                                      "\$: ${(product.value?[index].price).toString()}",
+                                      style: TextStyle(
+                                          color: Colors.red[600],
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold)),
+                                ),
                                 space(),
                               ],
                             ),
