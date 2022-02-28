@@ -13,4 +13,6 @@ class Configs {
   static const String adminOrder = "$mainURL/api/orders";
 
   static const String viewOrder = "$mainURL/api/orders/myorders";
+
+  static const String uploadImage = "$mainURL/api/upload";
 }
