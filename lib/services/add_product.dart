@@ -27,7 +27,8 @@ Future<dynamic> postproduct(
   FormData data =
       FormData.fromMap({'image': await MultipartFile.fromFile(image!.path)});
   var response2 = await Dio().post(
-    "http://192.168.10.168:3000/api/upload",
+    // "http://192.168.10.168:3000/api/upload",
+    Configs.uploadImage,
     options: Options(headers: {
       "Authorization": "Bearer $token",
       "Access-Control-Allow-Origin": "/"
@@ -51,11 +52,21 @@ Future<dynamic> postproduct(
     }),
     data: jsonEncode(body),
   );
-  print(response);
+  // print(response);
   if (response.statusCode == 200 || response.statusCode == 201) {
-    var addProduct = addProductFromJson(response.data);
+    // var addProduct = addProductFromJson(response.data);
+
     await Provider.of<MyProduct>(context, listen: false).getproduct(context);
-    return addProduct;
+    // Navigator.pop(context);
+    // Fluttertoast.showToast(
+    //   msg: "Congratulations ! \n Fish has been added",
+    //   toastLength: Toast.LENGTH_SHORT,
+    //   fontSize: 20.0,
+    //   timeInSecForIosWeb: 1,
+    //   textColor: Colors.white,
+    //   backgroundColor: Colors.green[800],
+    // );
+    // return addProduct;
   } else {
     Fluttertoast.showToast(
       msg: "Error ! \nPlease try again later.",

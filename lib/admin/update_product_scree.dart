@@ -288,25 +288,25 @@ class _UpdateProductUiState extends State<UpdateProductUi> {
                     //       // Navigator.of(context).pop();
                     //     }),
                     _gap(),
-                    image != null
-                        ? Image.file(
-                            image!,
-                            width: 150,
-                            height: 150,
-                            fit: BoxFit.cover,
-                          )
-                        : ElevatedButton(
-                            onPressed: () {
-                              pickImage();
-                            },
-                            child: Column(
-                              children: const [
-                                Icon(Icons.photo_library),
-                                Text('Photo Library'),
-                              ],
-                            ),
-                          ),
-                    _gap(),
+                    // image != null
+                    //     ? Image.file(
+                    //         image!,
+                    //         width: 150,
+                    //         height: 150,
+                    //         fit: BoxFit.cover,
+                    //       )
+                    //     : ElevatedButton(
+                    //         onPressed: () {
+                    //           pickImage();
+                    //         },
+                    //         child: Column(
+                    //           children: const [
+                    //             Icon(Icons.photo_library),
+                    //             Text('Photo Library'),
+                    //           ],
+                    //         ),
+                    //       ),
+                    // _gap(),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 100),
                       child: ElevatedButton(

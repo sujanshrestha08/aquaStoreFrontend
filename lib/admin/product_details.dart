@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:aqua_store/admin/add_product.dart';
 import 'package:aqua_store/admin/admin_home.dart';
 import 'package:aqua_store/admin/update_product_scree.dart';
 import 'package:aqua_store/services/product_service.dart';
 import 'package:aqua_store/services/rent_api.dart';
 import 'package:aqua_store/services/searchProduct_api.dart';
+import 'package:aqua_store/utils/configs.dart';
 import 'package:aqua_store/utils/time_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -16,7 +18,7 @@ import 'package:flutter/foundation.dart' as foundation;
 class ProductDetail extends StatefulWidget {
   final String id;
   final String name;
-  final dynamic image;
+  final String image;
   final String category;
   final int price;
   final String description;
@@ -146,9 +148,23 @@ class _ProductDetailState extends State<ProductDetail> {
                         children: [
                           gap(),
                           Container(
-                            height: 200,
-                            color: Colors.amber,
+                            height: 250,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.purple.shade100,
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(Configs.mainURL +
+                                    '/uploads/' +
+                                    widget.image),
+                              ),
+                            ),
                           ),
+                          // Container(
+                          //   height: 200,
+                          //   color: Colors.amber,
+
+                          // ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 14),
                             child: Column(

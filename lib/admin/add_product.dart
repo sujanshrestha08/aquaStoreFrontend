@@ -341,21 +341,11 @@ class _AddProductUiState extends State<AddProductUi> {
                     ),
                     _gap(),
                     image != null
-                        ? Row(
-                            children: [
-                              Image.file(
-                                image!,
-                                width: 200,
-                                height: 200,
-                                fit: BoxFit.cover,
-                              ),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    // uploadImage();
-                                    uploadProductImage(image!);
-                                  },
-                                  child: const Text("Upload Photo"))
-                            ],
+                        ? Image.file(
+                            image!,
+                            width: 200,
+                            height: 200,
+                            fit: BoxFit.cover,
                           )
                         : ElevatedButton(
                             onPressed: () {
@@ -412,7 +402,7 @@ class _AddProductUiState extends State<AddProductUi> {
                                 description.text,
                                 availableVehicle.text,
                                 price.text,
-                                image ?? null,
+                                image,
                                 context,
                               ).then((value) => {
                                     setState(() {
