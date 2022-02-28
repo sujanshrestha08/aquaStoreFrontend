@@ -1,6 +1,7 @@
 class Configs {
   // static const String mainURL = "http://192.168.1.69:5000";
-  static const String mainURL = "http://10.0.2.2:3000";
+
+  static const String mainURL = "http://192.168.10.168:3000";
   // static const String mainURL = "http://localhost:5000";
   // static const String mainURL = "https://49.244.106.116:5000";
 

@@ -400,6 +400,7 @@ class _HomePageState extends State<HomePage> {
                 Colors.green.shade50,
               ])),
           child: Consumer<MyProduct>(builder: (context, product, child) {
+            print(product);
             if (product.value?.isEmpty == true) {
               return Center(
                   child: Container(
@@ -499,10 +500,12 @@ class _HomePageState extends State<HomePage> {
                                     width: double.infinity,
                                     decoration: BoxDecoration(
                                       color: Colors.purple.shade100,
-                                      image: const DecorationImage(
+                                      image: DecorationImage(
                                         fit: BoxFit.cover,
                                         image: NetworkImage(Configs.mainURL +
-                                            "/uploads/image-1644522312628.png"),
+                                            'uploads' +
+                                            product.value![index].image
+                                                .toString()),
                                       ),
                                     ),
                                   ),

@@ -19,55 +19,41 @@ Future<dynamic> postproduct(
   String description,
   String availableVehicle,
   String price,
-  dynamic image,
+  File? image,
   context,
 ) async {
-  dynamic imageFile;
-  if (image != null) {
-    imageFile = MultipartFile.fromFileSync(
-      //part of dio package to post image
-      image.path,
-      filename: "${image.path.split("/")[image.path.split("/").length - 1]}",
-    );
-  }
+  String? token = await SharedServices.loginDetails();
 
-  // var imageResult = MultipartFile.fromFileSync(image.path,
-  //     filename: "${image.path.split("/")[image.path.split("/").length - 1]}");
-  // print(imageResult);
-  // .fromFileSync(tyoimagefile.path, filename: "${tyoimagefile.path.split("/")[tyoimagefile.path.split("/").length -1]}")
+  FormData data =
+      FormData.fromMap({'image': await MultipartFile.fromFile(image!.path)});
+  var response2 = await Dio().post(
+    "http://192.168.10.168:3000/api/upload",
+    options: Options(headers: {
+      "Authorization": "Bearer $token",
+      "Access-Control-Allow-Origin": "/"
+    }),
+    data: data,
+  );
   var body = {
     "name": name,
     "category": category,
     "description": description,
     "countInStock": availableVehicle,
     "price": price,
-    "image": image != null ? "/${imageFile.filename}" : null,
+    "image": response2.data,
   };
-  String? token = await SharedServices.loginDetails();
-  var response = await http.post(
-    Uri.parse(Configs.product),
-    headers: {
+  var response = await Dio().post(
+    Configs.product,
+    options: Options(headers: {
       "Authorization": "Bearer $token",
       "Access-Control-Allow-Origin": "/",
-      "Content-Type": "application/json",
-    },
-    body: jsonEncode(body),
+      "Content-type": "application/json"
+    }),
+    data: jsonEncode(body),
   );
-  if (response.statusCode == 201) {
-    // File fileBody = image;
-    // var response2 =
-    //     await http.post(Uri.parse("http://localhost:5000/api/upload"),
-    //         headers: {
-    //           "Authorization": "Bearer $token",
-    //           "Access-Control-Allow-Origin": "/",
-    //           "Content-Type": "application/json",
-    //         },
-    //         body: jsonEncode(fileBody));
-
-    // if (response2.statusCode == 201) {
-    //   print("oh uyes");
-    // }
-    var addProduct = addProductFromJson(response.body);
+  print(response);
+  if (response.statusCode == 200 || response.statusCode == 201) {
+    var addProduct = addProductFromJson(response.data);
     await Provider.of<MyProduct>(context, listen: false).getproduct(context);
     return addProduct;
   } else {

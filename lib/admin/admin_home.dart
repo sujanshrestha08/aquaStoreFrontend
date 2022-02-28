@@ -452,10 +452,9 @@ class _AdminHomePageState extends State<AdminHomePage> {
                                     image: DecorationImage(
                                       fit: BoxFit.cover,
                                       image: NetworkImage(Configs.mainURL +
-                                              "/" +
-                                              "${product.value?[index].image}"
-                                          // "${product.value?[index].image}"
-                                          ),
+                                          '/uploads/' +
+                                          product.value![index].image
+                                              .toString()),
                                     ),
                                   ),
                                 ),
