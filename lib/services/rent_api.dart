@@ -57,7 +57,7 @@ Future<dynamic> rentProduct(
       fontSize: 20.0,
       timeInSecForIosWeb: 1,
       textColor: Colors.white,
-      backgroundColor: Colors.green[800],
+      backgroundColor: Colors.green,
     );
     return modelProduct;
   } else {

@@ -42,7 +42,7 @@ class _CartState extends State<Cart> {
               appBar: AppBar(
                 title: const Text('Cart'),
                 centerTitle: true,
-                backgroundColor: Colors.deepOrange,
+                backgroundColor: Colors.green[800],
               ),
               body: const Center(
                 child: Text("Empty Cart"),
@@ -76,147 +76,155 @@ class _CartState extends State<Cart> {
                       child: SingleChildScrollView(
                           child: Container(
                               padding: EdgeInsets.all(15),
-                              child: Card(
-                                  child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  TextFormField(
-                                    keyboardType: TextInputType.text,
-                                    validator: (input) {
-                                      if (input == null || input.isEmpty) {
-                                        return "Empty Address Field";
-                                      } else {
-                                        Container();
-                                      }
-                                    },
-                                    // onSaved: (input) => _value = num.tryParse(input),
-                                    controller: address,
-                                    decoration: const InputDecoration(
-                                      labelText: "Street Address *",
-                                      hintStyle: TextStyle(color: Colors.grey),
-                                      border: OutlineInputBorder(),
-                                      prefixIcon: Icon(
-                                        Icons.location_on_outlined,
-                                        // color: Colors.black54,
+                              child: Form(
+                                key: globalCompleteFormKey,
+                                child: Card(
+                                    child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    TextFormField(
+                                      keyboardType: TextInputType.text,
+                                      validator: (input) {
+                                        if (input == null || input.isEmpty) {
+                                          return "Empty Address Field";
+                                        } else {
+                                          Container();
+                                        }
+                                      },
+                                      // onSaved: (input) => _value = num.tryParse(input),
+                                      controller: address,
+                                      decoration: const InputDecoration(
+                                        labelText: "Street Address *",
+                                        hintStyle:
+                                            TextStyle(color: Colors.grey),
+                                        border: OutlineInputBorder(),
+                                        prefixIcon: Icon(
+                                          Icons.location_on_outlined,
+                                          // color: Colors.black54,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  // _gap(),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  TextFormField(
-                                    keyboardType: TextInputType.text,
-                                    // onSaved: (input) => email = input,
-                                    validator: (input) {
-                                      if (input == null || input.isEmpty) {
-                                        return "Empty City ";
-                                      } else {
-                                        Container();
-                                      }
-                                    },
-                                    // onSaved: (input) => _value = num.tryParse(input),
-                                    controller: city,
-                                    decoration: const InputDecoration(
-                                      labelText: "City *",
-                                      hintStyle: TextStyle(color: Colors.grey),
-                                      border: OutlineInputBorder(),
-                                      prefixIcon: Icon(
-                                        Icons.location_city_outlined,
-                                        // color: Colors.black54,
+                                    // _gap(),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    TextFormField(
+                                      keyboardType: TextInputType.text,
+                                      // onSaved: (input) => email = input,
+                                      validator: (input) {
+                                        if (input == null || input.isEmpty) {
+                                          return "Empty City ";
+                                        } else {
+                                          Container();
+                                        }
+                                      },
+                                      // onSaved: (input) => _value = num.tryParse(input),
+                                      controller: city,
+                                      decoration: const InputDecoration(
+                                        labelText: "City *",
+                                        hintStyle:
+                                            TextStyle(color: Colors.grey),
+                                        border: OutlineInputBorder(),
+                                        prefixIcon: Icon(
+                                          Icons.location_city_outlined,
+                                          // color: Colors.black54,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  // _gap(),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  TextFormField(
-                                    keyboardType: TextInputType.number,
-                                    // onSaved: (input) => email = input,
-                                    validator: (input) {
-                                      if (input == null || input.isEmpty) {
-                                        return "Please Provide Postal Code";
-                                      } else {
-                                        Container();
-                                      }
-                                    },
-                                    // onSaved: (input) => _value = num.tryParse(input),
-                                    controller: postalCode,
-                                    decoration: const InputDecoration(
-                                      labelText: "Postal Code *",
-                                      hintStyle: TextStyle(color: Colors.grey),
-                                      border: OutlineInputBorder(),
-                                      prefixIcon: Icon(
-                                        Icons.qr_code_scanner_sharp,
-                                        // color: Colors.black54,
+                                    // _gap(),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    TextFormField(
+                                      keyboardType: TextInputType.number,
+                                      // onSaved: (input) => email = input,
+                                      validator: (input) {
+                                        if (input == null || input.isEmpty) {
+                                          return "Please Provide Postal Code";
+                                        } else {
+                                          Container();
+                                        }
+                                      },
+                                      // onSaved: (input) => _value = num.tryParse(input),
+                                      controller: postalCode,
+                                      decoration: const InputDecoration(
+                                        labelText: "Postal Code *",
+                                        hintStyle:
+                                            TextStyle(color: Colors.grey),
+                                        border: OutlineInputBorder(),
+                                        prefixIcon: Icon(
+                                          Icons.qr_code_scanner_sharp,
+                                          // color: Colors.black54,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  // _gap(),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  TextFormField(
-                                    keyboardType: TextInputType.text,
-                                    // onSaved: (input) => email = input,
-                                    validator: (input) {
-                                      if (input == null || input.isEmpty) {
-                                        return "Empty Country";
-                                      } else {
-                                        Container();
-                                      }
-                                    },
-                                    controller: country,
-                                    decoration: const InputDecoration(
-                                      labelText: "Country *",
-                                      hintStyle: TextStyle(color: Colors.grey),
-                                      border: OutlineInputBorder(),
-                                      prefixIcon: Icon(
-                                        Icons.flag_outlined,
-                                        // color: Colors.black54,
+                                    // _gap(),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    TextFormField(
+                                      keyboardType: TextInputType.text,
+                                      // onSaved: (input) => email = input,
+                                      validator: (input) {
+                                        if (input == null || input.isEmpty) {
+                                          return "Empty Country";
+                                        } else {
+                                          Container();
+                                        }
+                                      },
+                                      controller: country,
+                                      decoration: const InputDecoration(
+                                        labelText: "Country *",
+                                        hintStyle:
+                                            TextStyle(color: Colors.grey),
+                                        border: OutlineInputBorder(),
+                                        prefixIcon: Icon(
+                                          Icons.flag_outlined,
+                                          // color: Colors.black54,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      await rentProduct(
-                                        // value.lst[i].name.toString(),
-                                        // "image",
-                                        // value.lst[i].productPrice.toString(),
-                                        // value.lst[i].productId.toString(),
-                                        address.text,
-                                        city.text,
-                                        postalCode.text,
-                                        country.text,
-                                        context,
-                                        data: value.lst,
-                                      ).then((value) => {
-                                            setState(() {
-                                              Provider.of<CartProvider>(context,
-                                                      listen: false)
-                                                  .lst
-                                                  .clear();
-                                              Navigator.pop(context);
-                                              Navigator.pop(context);
-                                              Navigator.pop(context);
-                                            }),
-                                          });
-                                    },
-                                    child: const Text("Buy these Items"),
-                                    style: ElevatedButton.styleFrom(
-                                        primary: Colors.indigo[800],
-                                        textStyle: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold)),
-                                  )
-                                ],
-                              )))),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () async {
+                                        await rentProduct(
+                                          // value.lst[i].name.toString(),
+                                          // "image",
+                                          // value.lst[i].productPrice.toString(),
+                                          // value.lst[i].productId.toString(),
+                                          address.text,
+                                          city.text,
+                                          postalCode.text,
+                                          country.text,
+                                          context,
+                                          data: value.lst,
+                                        ).then((value) => {
+                                              setState(() {
+                                                Provider.of<CartProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .lst
+                                                    .clear();
+                                                Navigator.pop(context);
+                                                Navigator.pop(context);
+                                                Navigator.pop(context);
+                                              }),
+                                            });
+                                      },
+                                      child: const Text("Buy these Items"),
+                                      style: ElevatedButton.styleFrom(
+                                          primary: Colors.indigo[800],
+                                          textStyle: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold)),
+                                    )
+                                  ],
+                                )),
+                              ))),
                     );
                   },
                 );

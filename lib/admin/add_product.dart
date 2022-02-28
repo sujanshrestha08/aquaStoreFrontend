@@ -377,30 +377,30 @@ class _AddProductUiState extends State<AddProductUi> {
                               setState(() {
                                 apiCallProcess = true;
                               });
+                              postproduct(
+                                name.text,
+                                dropdownvalue.toString(),
+                                description.text,
+                                availableVehicle.text,
+                                price.text,
+                                image ?? null,
+                                context,
+                              ).then((value) => {
+                                    setState(() {
+                                      apiCallProcess = false;
+                                    }),
+                                    Navigator.pop(context),
+                                    Fluttertoast.showToast(
+                                      msg:
+                                          "Congratulations ! \n Fish has been added",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      fontSize: 20.0,
+                                      timeInSecForIosWeb: 1,
+                                      textColor: Colors.white,
+                                      backgroundColor: Colors.green[800],
+                                    ),
+                                  });
                             }
-                            postproduct(
-                              name.text,
-                              dropdownvalue.toString(),
-                              description.text,
-                              availableVehicle.text,
-                              price.text,
-                              image ?? null,
-                              context,
-                            ).then((value) => {
-                                  setState(() {
-                                    apiCallProcess = false;
-                                  }),
-                                  Navigator.pop(context),
-                                  Fluttertoast.showToast(
-                                    msg:
-                                        "Congratulations ! \n Fish has been added",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    fontSize: 20.0,
-                                    timeInSecForIosWeb: 1,
-                                    textColor: Colors.white,
-                                    backgroundColor: Colors.green[800],
-                                  ),
-                                });
                           }
                         },
                         child: apiCallProcess == true

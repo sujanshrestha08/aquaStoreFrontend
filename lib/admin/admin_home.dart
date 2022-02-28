@@ -5,6 +5,9 @@ import 'package:aqua_store/admin/update_product_scree.dart';
 import 'package:aqua_store/admin/view_my_order.dart';
 import 'package:aqua_store/admin/view_order.dart';
 import 'package:aqua_store/model/product.dart';
+import 'package:aqua_store/screen/aboutus.dart';
+import 'package:aqua_store/screen/contactus.dart';
+import 'package:aqua_store/screen/faq.dart';
 import 'package:aqua_store/screen/login_screen.dart';
 import 'package:aqua_store/services/delete_product_api.dart';
 import 'package:aqua_store/services/product_service.dart';
@@ -147,6 +150,10 @@ class _AdminHomePageState extends State<AdminHomePage> {
               color: Colors.white,
               thickness: 1,
             ),
+            const Divider(
+              color: Colors.white,
+              thickness: 1,
+            ),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 18),
               color: Colors.white,
@@ -161,7 +168,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => ViewMyOrder()),
+                        builder: (BuildContext context) => AboutUs()),
                   );
                 },
                 child: Row(
@@ -175,7 +182,88 @@ class _AdminHomePageState extends State<AdminHomePage> {
                       width: 10,
                     ),
                     Text(
-                      "View My Order",
+                      "About Us",
+                      style: TextStyle(
+                          color: Colors.green[900],
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const Divider(
+              color: Colors.white,
+              thickness: 1,
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 18),
+              color: Colors.white,
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  // backgroundColor: const Color(0xfff06127),
+                  padding: const EdgeInsets.all(10),
+                  primary: Colors.white,
+                  textStyle: const TextStyle(fontSize: 15),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => ContactUs()),
+                  );
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.contact_mail_outlined,
+                      color: Colors.greenAccent[700],
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Contact Us",
+                      style: TextStyle(
+                          color: Colors.green[900],
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const Divider(
+              color: Colors.white,
+              thickness: 1,
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 18),
+              color: Colors.white,
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  // backgroundColor: const Color(0xfff06127),
+                  padding: const EdgeInsets.all(10),
+                  primary: Colors.white,
+                  textStyle: const TextStyle(fontSize: 15),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (BuildContext context) => FAQ()),
+                  );
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.repeat_one,
+                      color: Colors.greenAccent[700],
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "FAQs",
                       style: TextStyle(
                           color: Colors.green[900],
                           fontWeight: FontWeight.bold),
@@ -262,98 +350,138 @@ class _AdminHomePageState extends State<AdminHomePage> {
                     Colors.green.shade400,
                     Colors.green.shade50,
                   ])),
-              child: Container(
-                margin: const EdgeInsets.all(15),
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(50)),
-                child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 2.0,
-                      mainAxisSpacing: 2.0,
+              child: Column(
+                children: [
+                  Container(
+                    height: 150,
+                    padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.all(2),
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: AssetImage('assets/images/homepage.jpg'),
+                      ),
                     ),
-                    physics: const BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: product.value?.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return GridTile(
-                        child: InkWell(
-                          onTap: () {
-                            {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ProductDetail(
-                                          id: (product.value?[index].id)
-                                              .toString(),
-                                          name: (product.value?[index].name)
-                                              .toString(),
-                                          image: (product.value?[index].image)
-                                              .toString(),
-                                          // NetworkImage(
-                                          //     Configs.mainURL +
-                                          //         // "/" +
-                                          //         // "${product.value?[index].image}"
-                                          //         "/uploads/image-1644773012939.png"
-                                          //     // "${product.value?[index].image}"
-
-                                          //     ),
-                                          category:
-                                              (product.value?[index].category)
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    color: Colors.green[900],
+                    width: double.infinity,
+                    height: 30,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Text(
+                        "Available Fishes",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin:
+                        const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(50)),
+                    child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 2.0,
+                          mainAxisSpacing: 2.0,
+                        ),
+                        physics: const BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: product.value?.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return GridTile(
+                            child: InkWell(
+                              onTap: () {
+                                {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ProductDetail(
+                                              id: (product.value?[index].id)
                                                   .toString(),
-                                          price: (product.value?[index].price)!
-                                              .toInt(),
-                                          description: (product
-                                                  .value?[index].description)
-                                              .toString(),
-                                          productid: (product.value?[index].id)
-                                              .toString(),
-                                          stock: ((product
-                                                  .value?[index].countInStock)
-                                              .toString()),
-                                        )),
-                              );
-                            }
-                          },
-                          child: Card(
-                            elevation: 10,
-                            child: Container(
-                              height: 130,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Colors.purple.shade100,
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(Configs.mainURL +
-                                          "/" +
-                                          "${product.value?[index].image}"
-                                      // "${product.value?[index].image}"
-                                      ),
+                                              name: (product.value?[index].name)
+                                                  .toString(),
+                                              image:
+                                                  (product.value?[index].image)
+                                                      .toString(),
+                                              // NetworkImage(
+                                              //     Configs.mainURL +
+                                              //         // "/" +
+                                              //         // "${product.value?[index].image}"
+                                              //         "/uploads/image-1644773012939.png"
+                                              //     // "${product.value?[index].image}"
+
+                                              //     ),
+                                              category: (product
+                                                      .value?[index].category)
+                                                  .toString(),
+                                              price:
+                                                  (product.value?[index].price)!
+                                                      .toInt(),
+                                              description: (product
+                                                      .value?[index]
+                                                      .description)
+                                                  .toString(),
+                                              productid:
+                                                  (product.value?[index].id)
+                                                      .toString(),
+                                              stock: ((product.value?[index]
+                                                      .countInStock)
+                                                  .toString()),
+                                            )),
+                                  );
+                                }
+                              },
+                              child: Card(
+                                elevation: 10,
+                                child: Container(
+                                  height: 130,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Colors.purple.shade100,
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(Configs.mainURL +
+                                              "/" +
+                                              "${product.value?[index].image}"
+                                          // "${product.value?[index].image}"
+                                          ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                        footer: Column(
-                          children: [
-                            Text((product.value?[index].name).toString(),
-                                style: TextStyle(
-                                    color: Colors.green[800],
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold)),
-                            space(),
-                            Text(
-                                "\$: ${(product.value?[index].price).toString()}",
-                                style: TextStyle(
-                                    color: Colors.red[600],
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold)),
-                            space(),
-                          ],
-                        ),
-                      );
-                    }),
+                            footer: Column(
+                              children: [
+                                Text((product.value?[index].name).toString(),
+                                    style: TextStyle(
+                                        color: Colors.green[800],
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold)),
+                                space(),
+                                Text(
+                                    "\$: ${(product.value?[index].price).toString()}",
+                                    style: TextStyle(
+                                        color: Colors.red[600],
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
+                                space(),
+                              ],
+                            ),
+                          );
+                        }),
+                  ),
+                ],
               ),
             ),
           );

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:aqua_store/admin/admin_home.dart';
 import 'package:aqua_store/admin/update_product_scree.dart';
@@ -9,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:proximity_sensor/proximity_sensor.dart';
+import 'package:flutter/foundation.dart' as foundation;
 
 class ProductDetail extends StatefulWidget {
   final String id;
@@ -37,6 +40,9 @@ class ProductDetail extends StatefulWidget {
 }
 
 class _ProductDetailState extends State<ProductDetail> {
+  bool _isNear = false;
+  late StreamSubscription<dynamic> _streamSubscription;
+
   final address = TextEditingController();
   final city = TextEditingController();
   final postalCode = TextEditingController();
@@ -52,6 +58,34 @@ class _ProductDetailState extends State<ProductDetail> {
     } else {
       return DateFormat("yyyy-MM-dd").format(dateRange!.start);
     }
+  }
+
+  Future<void> listenSensor() async {
+    FlutterError.onError = (FlutterErrorDetails details) {
+      if (foundation.kDebugMode) {
+        FlutterError.dumpErrorToConsole(details);
+      }
+    };
+
+    _streamSubscription = ProximitySensor.events.listen((int event) {
+      setState(() {
+        if (event < 1) {
+          Navigator.pushNamed(context, "/logout");
+        }
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    listenSensor();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _streamSubscription.cancel();
   }
 
   String getTo() {
