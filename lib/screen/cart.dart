@@ -269,11 +269,19 @@ class _CartState extends State<Cart> {
                                           color: Colors.purple.shade100,
                                           image: DecorationImage(
                                             fit: BoxFit.cover,
-                                            image: NetworkImage(
-                                                "${Configs.mainURL}"
-                                                "/"
+                                            image: NetworkImage(Configs
+                                                    .mainURL +
+                                                '/uploads/' +
                                                 "${value.lst[index].image}"),
                                           ),
+                                          // image: DecorationImage(
+                                          //   fit: BoxFit.cover,
+
+                                          //   image: NetworkImage(
+                                          //       "${Configs.mainURL}"
+                                          //       "/"
+                                          //       "${value.lst[index].image}"),
+                                          // ),
                                         ),
                                       ),
                                       const SizedBox(
