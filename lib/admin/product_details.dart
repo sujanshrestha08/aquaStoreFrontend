@@ -151,7 +151,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             height: 250,
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              color: Colors.purple.shade100,
+                              color: Colors.green[50],
                               image: DecorationImage(
                                 fit: BoxFit.cover,
                                 image: NetworkImage(Configs.mainURL +
@@ -299,6 +299,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         ],
                       ),
                     ),
+
                     // ElevatedButton(
                     //   onPressed: () {
                     //     showModalBottomSheet(

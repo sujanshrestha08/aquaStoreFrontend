@@ -1,6 +1,7 @@
 import 'package:aqua_store/services/cartservices.dart';
 import 'package:aqua_store/services/product_service.dart';
 import 'package:aqua_store/services/rent_api.dart';
+import 'package:aqua_store/utils/configs.dart';
 import 'package:aqua_store/utils/time_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -124,9 +125,23 @@ class _ProductUserDetailState extends State<ProductUserDetail> {
                         children: [
                           gap(),
                           Container(
-                            height: 200,
-                            color: Colors.amber,
+                            height: 250,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.green[50],
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(Configs.mainURL +
+                                    '/uploads/' +
+                                    widget.image),
+                              ),
+                            ),
                           ),
+                          // Container(
+                          //   height: 200,
+                          //   color: Colors.amber,
+
+                          // ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 14),
                             child: Column(
@@ -134,29 +149,44 @@ class _ProductUserDetailState extends State<ProductUserDetail> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 gap(),
-                                Text("Car name: ${widget.name}",
+                                Text("Fish Name : ${widget.name}",
                                     style: TextStyle(
-                                      color: Colors.green[800],
-                                      fontSize: 16,
-                                    )),
+                                        color: Colors.green[800],
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold)),
+                                // gap(),
+                                // Text(
+                                //   "Car Model: ${widget.brand}",
+                                //   style: TextStyle(
+                                //     color: Colors.green[800],
+                                //     fontSize: 16,
+                                //   ),
+                                // ),
                                 gap(),
                                 Text("Category: ${widget.category}",
                                     style: TextStyle(
-                                      color: Colors.green[800],
-                                      fontSize: 16,
-                                    )),
+                                        color: Colors.green[800],
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
                                 gap(),
-                                Text("Price \$: ${widget.price}",
+                                Text("Prices \$: ${widget.price}",
                                     style: TextStyle(
-                                      color: Colors.green[800],
-                                      fontSize: 16,
-                                    )),
+                                        color: Colors.green[800],
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
+                                gap(),
+                                Text(
+                                    "Total Available Fish in the tank: ${widget.stock}",
+                                    style: TextStyle(
+                                        color: Colors.green[800],
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
                                 gap(),
                                 Text("Description: ${widget.description}",
                                     style: TextStyle(
-                                      color: Colors.green[800],
-                                      fontSize: 16,
-                                    )),
+                                        color: Colors.green[800],
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
                                 gap(),
                               ],
                             ),
