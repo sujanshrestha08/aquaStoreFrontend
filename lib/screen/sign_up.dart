@@ -179,7 +179,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                     _gap(),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 100),
+                      padding: const EdgeInsets.symmetric(horizontal: 50),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           primary: Colors.green[800],
