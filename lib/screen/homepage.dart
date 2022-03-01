@@ -503,7 +503,7 @@ class _HomePageState extends State<HomePage> {
                                       image: DecorationImage(
                                         fit: BoxFit.cover,
                                         image: NetworkImage(Configs.mainURL +
-                                            'uploads' +
+                                            '/uploads/' +
                                             product.value![index].image
                                                 .toString()),
                                       ),
