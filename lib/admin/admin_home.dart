@@ -482,6 +482,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                                       style: TextStyle(
                                           color: Colors.red[600],
                                           fontSize: 16,
+                                          backgroundColor: Colors.white,
                                           fontWeight: FontWeight.bold)),
                                 ),
                                 space(),
