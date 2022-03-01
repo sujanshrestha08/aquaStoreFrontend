@@ -20,7 +20,7 @@ class AddProductUi extends StatefulWidget {
 dynamic image;
 
 class _AddProductUiState extends State<AddProductUi> {
-  late File _image;
+  // late File _image;
   dynamic netImage;
   bool apiCallProcess = false;
   final ImagePicker selectedimage = ImagePicker();
@@ -52,77 +52,77 @@ class _AddProductUiState extends State<AddProductUi> {
     });
   }
 
-  Future<dynamic> uploadImage() async {
-    String? token = await SharedServices.loginDetails();
-    Map<String, String> headers = {
-      "Authorization": "Bearer $token",
-      "Access-Control-Allow-Origin": "/",
-    };
-    final uri = Uri.parse(Configs.uploadImage);
-    var request = http.MultipartRequest('POST', uri);
+  // Future<dynamic> uploadImage() async {
+  //   String? token = await SharedServices.loginDetails();
+  //   Map<String, String> headers = {
+  //     "Authorization": "Bearer $token",
+  //     "Access-Control-Allow-Origin": "/",
+  //   };
+  //   final uri = Uri.parse(Configs.uploadImage);
+  //   var request = http.MultipartRequest('POST', uri);
 
-    var pic = await http.MultipartFile.fromPath('image', image!.path);
-    request.headers.addAll(headers);
-    request.files.add(pic);
+  //   var pic = await http.MultipartFile.fromPath('image', image!.path);
+  //   request.headers.addAll(headers);
+  //   request.files.add(pic);
 
-    var response = await request.send();
+  //   var response = await request.send();
 
-    if (response.statusCode == 200) {
-      print(response);
-      return Fluttertoast.showToast(
-        msg: "Image Uploaded",
-        toastLength: Toast.LENGTH_SHORT,
-        fontSize: 20.0,
-        timeInSecForIosWeb: 1,
-        textColor: Colors.white,
-        backgroundColor: Colors.green.shade900,
-      );
-    } else {
-      return Fluttertoast.showToast(
-        msg: "Error",
-        toastLength: Toast.LENGTH_SHORT,
-        fontSize: 20.0,
-        timeInSecForIosWeb: 1,
-        textColor: Colors.white,
-        backgroundColor: Colors.red[800],
-      );
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     print(response);
+  //     return Fluttertoast.showToast(
+  //       msg: "Image Uploaded",
+  //       toastLength: Toast.LENGTH_SHORT,
+  //       fontSize: 20.0,
+  //       timeInSecForIosWeb: 1,
+  //       textColor: Colors.white,
+  //       backgroundColor: Colors.green.shade900,
+  //     );
+  //   } else {
+  //     return Fluttertoast.showToast(
+  //       msg: "Error",
+  //       toastLength: Toast.LENGTH_SHORT,
+  //       fontSize: 20.0,
+  //       timeInSecForIosWeb: 1,
+  //       textColor: Colors.white,
+  //       backgroundColor: Colors.red[800],
+  //     );
+  //   }
+  // }
 
-  Future<void> uploadProductImage(File image) async {
-    String? token = await SharedServices.loginDetails();
-    FormData _formData = FormData.fromMap({
-      "image": await MultipartFile.fromFile(image.path),
-    });
-    final response = await Dio().post(Configs.uploadImage,
-        data: _formData,
-        options: Options(
-          headers: {
-            "Authorization": "Bearer $token",
-            "Access-Control-Allow-Origin": "/"
-          },
-        ));
-    if (response.statusCode == 200) {
-      Fluttertoast.showToast(
-        msg: "Image Uploaded",
-        toastLength: Toast.LENGTH_SHORT,
-        fontSize: 20.0,
-        timeInSecForIosWeb: 1,
-        textColor: Colors.white,
-        backgroundColor: Colors.green.shade900,
-      );
-    } else {
-      Fluttertoast.showToast(
-        msg: "Error",
-        toastLength: Toast.LENGTH_SHORT,
-        fontSize: 20.0,
-        timeInSecForIosWeb: 1,
-        textColor: Colors.white,
-        backgroundColor: Colors.red[800],
-      );
-    }
-    // }
-  }
+  // Future<void> uploadProductImage(File image) async {
+  //   String? token = await SharedServices.loginDetails();
+  //   FormData _formData = FormData.fromMap({
+  //     "image": await MultipartFile.fromFile(image.path),
+  //   });
+  //   final response = await Dio().post(Configs.uploadImage,
+  //       data: _formData,
+  //       options: Options(
+  //         headers: {
+  //           "Authorization": "Bearer $token",
+  //           "Access-Control-Allow-Origin": "/"
+  //         },
+  //       ));
+  //   if (response.statusCode == 200) {
+  //     Fluttertoast.showToast(
+  //       msg: "Image Uploaded",
+  //       toastLength: Toast.LENGTH_SHORT,
+  //       fontSize: 20.0,
+  //       timeInSecForIosWeb: 1,
+  //       textColor: Colors.white,
+  //       backgroundColor: Colors.green.shade900,
+  //     );
+  //   } else {
+  //     Fluttertoast.showToast(
+  //       msg: "Error",
+  //       toastLength: Toast.LENGTH_SHORT,
+  //       fontSize: 20.0,
+  //       timeInSecForIosWeb: 1,
+  //       textColor: Colors.white,
+  //       backgroundColor: Colors.red[800],
+  //     );
+  //   }
+  //   // }
+  // }
 
   String dropdownvalue = "Goldfish";
 

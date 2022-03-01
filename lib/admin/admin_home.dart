@@ -469,6 +469,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
                                       (product.value?[index].name).toString(),
                                       style: TextStyle(
                                           color: Colors.green[800],
+                                          backgroundColor: Colors.white,
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold)),
                                 ),

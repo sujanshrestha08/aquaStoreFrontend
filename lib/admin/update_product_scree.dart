@@ -1,6 +1,7 @@
 import 'package:aqua_store/admin/admin_home.dart';
 import 'package:aqua_store/services/add_product.dart';
 import 'package:aqua_store/services/update_product_api.dart';
+import 'package:aqua_store/utils/configs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -288,6 +289,21 @@ class _UpdateProductUiState extends State<UpdateProductUi> {
                     //       // Navigator.of(context).pop();
                     //     }),
                     _gap(),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 250,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.blue[50],
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                                Configs.mainURL + '/uploads/' + widget.image),
+                          ),
+                        ),
+                      ),
+                    ),
                     // image != null
                     //     ? Image.file(
                     //         image!,
@@ -332,7 +348,7 @@ class _UpdateProductUiState extends State<UpdateProductUi> {
                               stock.text,
                               price.text,
                               // image!.path.toString(),
-                              "image.path",
+                              widget.image,
                               widget.id.toString(),
                               context,
                             ).then((value) => {
