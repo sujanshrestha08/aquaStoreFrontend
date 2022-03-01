@@ -240,6 +240,7 @@ class _AddProductUiState extends State<AddProductUi> {
                             width: 10,
                           ),
                           Container(
+                            width: 200,
                             decoration: BoxDecoration(
                                 color: Colors.green[50],
                                 border:
